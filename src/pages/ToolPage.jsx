@@ -89,17 +89,27 @@ const ToolPage = () => {
                 {/* Filtros */}
                 <section className="max-w-6xl mx-auto bg-white/80 backdrop-blur-md rounded-lg shadow-sm sticky top-0 z-10">
             <div className="max-w-6xl mx-auto px-4 py-4">
-              <div className="flex flex-col lg:flex-row lg:items-center gap-4">
-                {/* Barra de busca */}
-                <div className="lg:w-2/5 w-full min-w-[300px] relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                  <input
-              type="text"
-              placeholder="Buscar ferramentas..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
-                  />
+              <div className="flex flex-col lg:flex-row lg:items-start gap-4">
+                {/* Barra de busca  + Contador de ferramentas*/}
+                <div className="lg:w-2/5 w-full min-w-[300px] grid gap-2">
+
+                  {/* Barra de busca */}
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <input
+                      type="text"
+                      placeholder="Buscar ferramentas..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    />
+                  </div>
+
+                  {/* Contador de ferramentas */}
+                  <div className="text-sm text-gray-600">
+                    {filteredFerramentas.length} ferramenta{filteredFerramentas.length !== 1 ? 's' : ''} encontrada{filteredFerramentas.length !== 1 ? 's' : ''}
+                  </div>
+
                 </div>
 
                 {/* Filtro por tags */}
@@ -142,11 +152,6 @@ const ToolPage = () => {
                   )
                 })}
               </div>
-          </div>
-
-          {/* Contador de resultados */}
-          <div className="mt-4 text-sm text-gray-600">
-            {filteredFerramentas.length} ferramenta{filteredFerramentas.length !== 1 ? 's' : ''} encontrada{filteredFerramentas.length !== 1 ? 's' : ''}
           </div>
         </div>
       </section>
