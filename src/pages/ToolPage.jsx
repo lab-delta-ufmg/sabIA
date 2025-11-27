@@ -5,7 +5,7 @@ import { useFerramentasStore } from '../stores'
 const ToolPage = () => {
   const { ferramentas, loading, error, loadFerramentas } = useFerramentasStore()
   const [searchTerm, setSearchTerm] = useState('')
-  const [selectedTag, setSelectedTag] = useState('')
+  const [selectedTags, setSelectedTags] = useState([])
 
   useEffect(() => {
     loadFerramentas()
@@ -18,11 +18,14 @@ const ToolPage = () => {
                            (ferramenta.funcao && ferramenta.funcao.toLowerCase().includes(searchTerm.toLowerCase())) ||
                            (ferramenta.como_pode_ajudar && ferramenta.como_pode_ajudar.toLowerCase().includes(searchTerm.toLowerCase()))
       
-      const matchesTag = !selectedTag || (ferramenta.tags && ferramenta.tags.includes(selectedTag))
+      const matchesTag =
+        selectedTags.length === 0 ||
+        (ferramenta.tags &&
+          selectedTags.every(tag => ferramenta.tags.includes(tag)))
       
       return matchesSearch && matchesTag
     })
-  }, [ferramentas, searchTerm, selectedTag])
+  }, [ferramentas, searchTerm, selectedTags])
 
   // Obter todas as tags únicas
   const allTags = useMemo(() => {
@@ -86,9 +89,9 @@ const ToolPage = () => {
                 {/* Filtros */}
                 <section className="max-w-6xl mx-auto bg-white/80 backdrop-blur-md rounded-lg shadow-sm sticky top-0 z-10">
             <div className="max-w-6xl mx-auto px-4 py-4">
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col lg:flex-row lg:items-center gap-4">
                 {/* Barra de busca */}
-                <div className="flex-1 relative">
+                <div className="lg:w-2/5 w-full min-w-[300px] relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                   <input
               type="text"
@@ -100,19 +103,45 @@ const ToolPage = () => {
                 </div>
 
                 {/* Filtro por tags */}
-            <div className="sm:w-64 relative">
-              <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-              <select
-                value={selectedTag}
-                onChange={(e) => setSelectedTag(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 appearance-none bg-white"
-              >
-                <option value="">Todas as tags</option>
-                {allTags.map(tag => (
-                  <option key={tag} value={tag}>{tag}</option>
-                ))}
-              </select>
-            </div>
+              <div className="lg:w-3/5 w-full min-w-[300px] flex flex-wrap gap-2 items-start lg:self-center">
+                <Filter className="text-gray-400 w-4 h-4" />
+
+                {/* Botão "Todas" */}
+                <button
+                  type="button"
+                  onClick={() => setSelectedTags([])}
+                  className={`px-3 py-1 rounded-full border text-xs ${
+                    selectedTags.length === 0
+                      ? 'bg-primary text-white border-primary'
+                      : 'bg-white text-gray-700 border-gray-300'
+                  }`}
+                >
+                  Todas
+                </button>
+
+                {/* Chips de tags */}
+                {allTags.map(tag => {
+                  const isSelected = selectedTags.includes(tag)
+                  return (
+                    <button
+                      key={tag}
+                      type="button"
+                      onClick={() =>
+                        setSelectedTags(prev =>
+                          isSelected ? prev.filter(t => t !== tag) : [...prev, tag]
+                        )
+                      }
+                      className={`px-3 py-1 rounded-full border text-xs ${
+                        isSelected
+                          ? 'bg-primary text-white border-primary'
+                          : 'bg-white text-gray-700 border-gray-300'
+                      }`}
+                    >
+                      {tag}
+                    </button>
+                  )
+                })}
+              </div>
           </div>
 
           {/* Contador de resultados */}
