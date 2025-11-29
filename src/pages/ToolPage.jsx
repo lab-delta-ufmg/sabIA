@@ -54,7 +54,7 @@ const ToolPage = () => {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando ferramentas...</p>
+          <p className="text-text-light">Carregando ferramentas...</p>
         </div>
       </div>
     )
@@ -73,13 +73,13 @@ const ToolPage = () => {
   return (
     <div className="min-h-screen bg-background pb-12">
       {/* Header */}
-      <header className="flex text-primary max-w-4xl mx-auto px-8 justify-between">
+      <header className="flex text-text-dark max-w-4xl mx-auto px-8 justify-between">
           {/* Ícone do pássaro (simplificado) */}
             <div className="flex items-center">
               <img className="w-40 h-40" src="/logobig.png" alt="Logo Sabia" />
               <div className="text-left">
                 <h1 className="text-3xl font-bold mb-2">Ferramentas de IA</h1>
-                <p className="text-primary-100">
+                <p className="text-text-light">
                   Explore nossa curadoria de ferramentas de inteligência artificial para ensino de línguas
                 </p>
               </div>
@@ -91,11 +91,11 @@ const ToolPage = () => {
             <div className="max-w-6xl mx-auto px-4 py-4">
               <div className="flex flex-col lg:flex-row lg:items-start gap-4">
                 {/* Barra de busca  + Contador de ferramentas*/}
-                <div className="lg:w-2/5 w-full min-w-[300px] grid gap-2">
+                <div className="lg:w-1/3 w-full min-w-[300px] grid gap-2">
 
                   {/* Barra de busca */}
                   <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6" />
                     <input
                       type="text"
                       placeholder="Buscar ferramentas..."
@@ -106,15 +106,15 @@ const ToolPage = () => {
                   </div>
 
                   {/* Contador de ferramentas */}
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-text-dark">
                     {filteredFerramentas.length} ferramenta{filteredFerramentas.length !== 1 ? 's' : ''} encontrada{filteredFerramentas.length !== 1 ? 's' : ''}
                   </div>
 
                 </div>
 
                 {/* Filtro por tags */}
-              <div className="lg:w-3/5 w-full min-w-[300px] flex flex-wrap gap-2 items-start lg:self-center">
-                <Filter className="text-gray-400 w-4 h-4" />
+              <div className="lg:w-4/7 w-full min-w-[300px] flex flex-wrap gap-2 items-start lg:self-center text-text-dark font-bold">
+                <Filter className="text-text-dark  w-6 h-6" />
 
                 {/* Botão "Todas" */}
                 <button
@@ -123,7 +123,7 @@ const ToolPage = () => {
                   className={`px-3 py-1 rounded-full border text-xs ${
                     selectedTags.length === 0
                       ? 'bg-primary text-white border-primary'
-                      : 'bg-white text-gray-700 border-gray-300'
+                      : 'bg-white text-text-dark border-gray-300'
                   }`}
                 >
                   Todas
@@ -141,10 +141,10 @@ const ToolPage = () => {
                           isSelected ? prev.filter(t => t !== tag) : [...prev, tag]
                         )
                       }
-                      className={`px-3 py-1 rounded-full border text-xs ${
+                      className={`px-3 py-1 rounded-full border text-sm ${
                         isSelected
                           ? 'bg-primary text-white border-primary'
-                          : 'bg-white text-gray-700 border-gray-300'
+                          : 'bg-white text-text-dark border-gray-300'
                       }`}
                     >
                       {tag}
@@ -157,10 +157,10 @@ const ToolPage = () => {
       </section>
 
       {/* Grid de Cards */}
-      <main className="max-w-6xl mx-auto px-4 py-8">
+      <main className="max-w-6xl mx-auto px-4 py-6">
         {filteredFerramentas.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">
+          <div className="text-center py-2">
+            <p className="text-text-dark text-lg">
               {ferramentas.length === 0 
                 ? 'Nenhuma ferramenta disponível no momento.' 
                 : 'Nenhuma ferramenta encontrada com os filtros aplicados.'
@@ -173,8 +173,8 @@ const ToolPage = () => {
               <div key={ferramenta.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden">
                 {/* Header do card */}
                 <div className="p-4 border-b border-gray-100">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-lg font-bold text-gray-800 flex-1 mr-3">
+                  <div className="flex items-center justify-between mb-[-6px]">
+                    <h3 className="text-lg font-bold text-text-dark flex-1 mr-3">
                       {ferramenta.nome}
                     </h3>
                     {ferramenta.link_site && (
@@ -206,28 +206,28 @@ const ToolPage = () => {
                   {/* Função e Tags */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     <div>
-                      <h4 className="text-sm font-semibold text-gray-700 mb-1">Função</h4>
-                      <p className="text-sm text-gray-600">
+                      <h4 className="text-sm font-semibold text-text-dark mb-1">Função</h4>
+                      <p className="text-sm text-text-dark">
                         {ferramenta.funcao || 'Não informado'}
                       </p>
                     </div>
                     <div>
-                      <h4 className="text-sm font-semibold text-gray-700 mb-1">Tags</h4>
+                      <h4 className="text-sm font-semibold text-text-dark mb-1">Tags</h4>
                       <div className="flex flex-wrap gap-1">
                         {ferramenta.tags && ferramenta.tags.length > 0 ? (
                           ferramenta.tags.slice(0, 3).map((tag, index) => (
                             <span 
                               key={index}
-                              className="px-2 py-1 text-xs bg-secondary/20 text-primary rounded-full"
+                              className="px-2 py-1 text-xs bg-secondary/20 text-text-light font-bold rounded-full"
                             >
                               {tag}
                             </span>
                           ))
                         ) : (
-                          <span className="text-xs text-gray-400">Sem tags</span>
+                          <span className="text-sm text-text-light">Sem tags</span>
                         )}
                         {ferramenta.tags && ferramenta.tags.length > 3 && (
-                          <span className="text-xs text-gray-400">
+                          <span className="text-sm text-text-light">
                             +{ferramenta.tags.length - 3}
                           </span>
                         )}
@@ -238,7 +238,7 @@ const ToolPage = () => {
                   {/* Como pode ajudar */}
                   {ferramenta.como_pode_ajudar && (
                     <div>
-                      <p className="text-xs text-gray-500 leading-relaxed line-clamp-3">
+                      <p className="text-sm text-text-light leading-relaxed line-clamp-3 text-justify">
                         {ferramenta.como_pode_ajudar}
                       </p>
                     </div>
@@ -252,7 +252,7 @@ const ToolPage = () => {
                       href={ferramenta.link_site}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block w-full text-center bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
+                      className="block w-full text-center bg-primary text-text-clear py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
                     >
                       Acessar Ferramenta
                     </a>

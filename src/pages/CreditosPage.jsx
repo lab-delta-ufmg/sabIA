@@ -1,36 +1,47 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ChevronLeftIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
+import { ChevronLeft, CheckCircle } from 'lucide-react'
 
 export default function CreditosPage() {
+  const navigate = useNavigate()
+
   return (
     <div className="min-h-screen bg-background">
-      <div className="max-w-4xl mx-auto px-4 py-8">
         {/* Header com navegação */}
-        <div className="flex items-center mb-8">
-          <Link 
-            to="/" 
-            className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
-          >
-            <ChevronLeftIcon className="w-5 h-5" />
-            Voltar para o início
-          </Link>
+        <div className="bg-primary text-white py-12">
+          <div className="max-w-4xl mx-auto px-6">
+            <button
+              onClick={() => navigate(-1)}
+              className="inline-flex items-center text-text-clear/80 hover:text-text-clear mb-6 transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5 mr-2" />
+              Voltar
+            </button>
+
+            <div className="text-center">
+              <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="w-8 h-8 text-white" />
+              </div>
+              <h1 className="text-3xl md:text-4xl text-white font-bold mb-2">
+                Créditos e Licença
+              </h1>
+              <p className="text-lg text-white opacity-90"> 
+                Informações sobre equipe e licença
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* Título */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-text-dark mb-4">
-            Créditos e Licença
-          </h1>
-        </div>
+        <div className="max-w-4xl mx-auto px-4 py-8">
 
         {/* Licença Creative Commons */}
         <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-bold text-text-dark mb-6">Licença de Uso</h2>
-          <p className="text-lg text-text-dark leading-relaxed mb-4">
+          <h2 className="text-2xl font-bold text-text-dark mb-6 text-center">Licença de Uso</h2>
+          <p className="text-lg text-text-light leading-relaxed mb-4 text-justify">
             O conteúdo autoral deste site – incluindo descrições, categorização, organização de informações e textos explicativos – é disponibilizado sob a licença <strong>Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional (CC BY-NC-SA 4.0)</strong>.
           </p>
-          <p className="text-lg text-text-dark leading-relaxed">
+          <p className="text-lg text-text-light leading-relaxed text-justify">
             Isso significa que você pode usar, adaptar e compartilhar os conteúdos do sabIÁ para fins não comerciais, desde que atribua os créditos corretamente e mantenha a mesma licença nas versões derivadas.
           </p>
         </div>
@@ -39,11 +50,11 @@ export default function CreditosPage() {
         <div className="space-y-8">
           {/* Criação e desenvolvimento conceitual */}
           <div className="bg-white rounded-xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-primary mb-6 text-center">
+            <h2 className="text-2xl font-bold text-text-dark mb-6 text-center">
               Criação e desenvolvimento conceitual e estrutural
             </h2>
             <div className="text-center">
-              <p className="text-xl font-semibold text-text-dark">
+              <p className="text-xl font-semibold text-text-light">
                 Ronaldo Corrêa Gomes Junior
               </p>
             </div>
@@ -51,17 +62,17 @@ export default function CreditosPage() {
 
           {/* Desenvolvimento e suporte */}
           <div className="bg-white rounded-xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-primary mb-6 text-center">
+            <h2 className="text-2xl font-bold text-text-dark mb-6 text-center">
               Desenvolvimento e suporte
             </h2>
             <div className="space-y-3 text-center">
-              <p className="text-xl font-semibold text-text-dark">
+              <p className="text-xl font-semibold text-text-light">
                 Ronaldo Corrêa Gomes Junior
               </p>
-              <p className="text-xl font-semibold text-text-dark">
+              <p className="text-xl font-semibold text-text-light">
                 Carlos Henrique Rodrigues Valadares
               </p>
-              <p className="text-xl font-semibold text-text-dark">
+              <p className="text-xl font-semibold text-text-light">
                 Elaine Teixeira da Silva
               </p>
             </div>
@@ -69,17 +80,17 @@ export default function CreditosPage() {
 
           {/* Curadoria */}
           <div className="bg-white rounded-xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-primary mb-6 text-center">
+            <h2 className="text-2xl font-bold text-text-dark mb-6 text-center">
               Curadoria
             </h2>
             <div className="space-y-3 text-center">
-              <p className="text-xl font-semibold text-text-dark">
+              <p className="text-xl font-semibold text-text-light">
                 Alice Brandão Azevedo Alves
               </p>
-              <p className="text-xl font-semibold text-text-dark">
+              <p className="text-xl font-semibold text-text-light">
                 Elaine Teixeira da Silva
               </p>
-              <p className="text-xl font-semibold text-text-dark">
+              <p className="text-xl font-semibold text-text-light">
                 Ronaldo Corrêa Gomes Junior
               </p>
             </div>
@@ -87,16 +98,16 @@ export default function CreditosPage() {
         </div>
 
         {/* Nota sobre marcas registradas */}
-        <div className="bg-gradient-to-r from-secondary/10 to-primary/10 rounded-xl p-8 mt-8">
-          <h2 className="text-2xl font-bold text-text-dark mb-4">Nota sobre marcas registradas</h2>
-          <p className="text-lg text-text-dark leading-relaxed">
+        <div className="bg-secondary/20 rounded-xl p-8 mt-8">
+          <h2 className="text-2xl font-bold text-text-dark mb-4 text-center">Nota sobre marcas registradas</h2>
+          <p className="text-lg text-text-light leading-relaxed text-justify">
             As marcas, logotipos e nomes das ferramentas de IA listadas neste aplicativo pertencem aos seus respectivos proprietários. O sabIÁ realiza uma curadoria educativa e não possui vínculo comercial com os serviços mencionados.
           </p>
         </div>
 
         {/* Contato */}
-        <div className="bg-primary rounded-xl p-8 mt-8 text-center">
-          <h2 className="text-2xl font-bold text-white mb-6">Contato</h2>
+        <div className="bg-primary rounded-xl p-4 mt-8 text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">Contato</h2>
           <a 
             href="mailto:gpdelta@gmail.com"
             className="inline-flex items-center gap-3 bg-white text-primary px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors font-medium text-lg"
@@ -107,10 +118,10 @@ export default function CreditosPage() {
         </div>
 
         {/* Navegação adicional */}
-        <div className="mt-12 text-center">
+        <div className="mt-8 text-center">
           <Link 
             to="/sobre" 
-            className="inline-flex items-center gap-2 bg-secondary text-white px-6 py-3 rounded-lg hover:bg-secondary/90 transition-colors font-medium"
+            className="inline-flex items-center gap-2 bg-secondary text-text-dark px-6 py-3 rounded-lg hover:bg-secondary/90 transition-colors font-medium"
           >
             Sobre o sabIÁ
           </Link>

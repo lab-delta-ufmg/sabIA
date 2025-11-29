@@ -66,11 +66,11 @@ const CategoriasPage = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header da página */}
-      <div className="bg-gradient-to-r from-primary to-secondary text-white py-12">
+      <div className="bg-primary text-text-clear py-12">
         <div className="max-w-6xl mx-auto px-6">
           <button
             onClick={() => navigate(-1)}
-            className="inline-flex items-center text-white/80 hover:text-white mb-6 transition-colors"
+            className="inline-flex items-center text-text-clear/80 hover:text-text-clear mb-6 transition-colors"
           >
             <ChevronLeft className="w-5 h-5 mr-2" />
             Voltar
@@ -78,7 +78,7 @@ const CategoriasPage = () => {
           
           <div className="text-center">
             <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Archive className="w-8 h-8 text-white" />
+              <Archive className="w-8 h-8 text-text-clear" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold mb-2">Conheça as Categorias</h1>
             <p className="text-lg opacity-90">Organização linguístico-pedagógica das ferramentas</p>
@@ -89,15 +89,15 @@ const CategoriasPage = () => {
       {/* Conteúdo principal */}
       <div className="max-w-6xl mx-auto px-6 py-12">
         {/* Introdução */}
-        <div className="bg-white rounded-lg shadow-md p-8 md:p-12 mb-8">
-          <div className="text-center mb-8">
-            <p className="text-lg text-gray-700 leading-relaxed mb-6">
+        <div className="bg-white text-text-light rounded-lg shadow-md p-8 md:p-12 mb-8">
+          <div className="text-center mb-2">
+            <p className="text-lg leading-relaxed mb-6 text-justify">
               Cada ferramenta no sabIÁ é classificada em uma ou mais categorias linguístico-pedagógicas, 
               que ajudam você a navegar e encontrar recursos alinhados aos seus objetivos.
             </p>
             
-            <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-6 border-l-4 border-primary">
-              <p className="text-gray-700">
+            <div className="bg-primary/10 rounded-lg p-6 border-l-4 border-primary">
+              <p className="">
                 As categorias não são apenas técnicas, mas organizadas com foco em práticas linguísticas e educacionais.
               </p>
             </div>
@@ -113,9 +113,9 @@ const CategoriasPage = () => {
             >
               <div className="flex items-start mb-4">
                 <span className="text-3xl mr-3 flex-shrink-0">{categoria.emoji}</span>
-                <h3 className="text-xl font-bold text-gray-800">{categoria.nome}</h3>
+                <h3 className="text-xl font-bold text-text-dark">{categoria.nome}</h3>
               </div>
-              <p className="text-gray-600 leading-relaxed text-sm">
+              <p className="text-text-light leading-relaxed text-sm text-justify">
                 {categoria.descricao}
               </p>
             </div>
@@ -129,31 +129,31 @@ const CategoriasPage = () => {
               <Info className="w-6 h-6 text-secondary mt-1" />
             </div>
             <div className="ml-3">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Categorias Múltiplas</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg font-semibold text-text-dark mb-2">Categorias Múltiplas</h3>
+              <p className="text-text-light">
                 Uma ferramenta pode aparecer em mais de uma categoria, pois seus usos são múltiplos e flexíveis.
               </p>
             </div>
           </div>
 
           {/* Navegação para outras páginas */}
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <h4 className="text-lg font-semibold text-gray-800 mb-4">Explore mais</h4>
+          <div className="mt-12 pt-8 border-t border-text-dark">
+            <h3 className="text-lg font-semibold text-text-dark mb-4">Explore mais</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <button
                 onClick={() => navigate('/sobre')}
-                className="text-left p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                className="text-left p-4 bg-background rounded-lg hover:bg-gray-100 transition-colors border-l-4 border-primary"
               >
-                <h5 className="font-semibold text-primary mb-1">Sobre o sabIA</h5>
-                <p className="text-sm text-gray-600">Conheça nossa plataforma e missão</p>
+                <h4 className="font-semibold text-text-dark mb-1">Sobre o sabIA</h4>
+                <p className="text-sm text-text-light">Conheça nossa plataforma e missão</p>
               </button>
               
               <button
                 onClick={() => navigate('/curadoria')}
-                className="text-left p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                className="text-left p-4 bg-background rounded-lg hover:bg-gray-100 transition-colors border-l-4 border-primary"
               >
-                <h5 className="font-semibold text-primary mb-1">Como funciona a curadoria</h5>
-                <p className="text-sm text-gray-600">Entenda nosso processo de seleção</p>
+                <h4 className="font-semibold text-text-dark mb-1">Como funciona a curadoria</h4>
+                <p className="text-sm text-text-light">Entenda nosso processo de seleção</p>
               </button>
             </div>
           </div>
