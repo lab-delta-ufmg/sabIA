@@ -57,7 +57,7 @@ const PostPage = () => {
 
           {/* Botão de voltar com ícone da logo */}
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigate('/')}
             className="absolute left-4 top-4 flex items-center p-02"
             title="Voltar"
           >
