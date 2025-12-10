@@ -246,8 +246,8 @@ npm run preview
 
 ## 🔗 Links Úteis
 
-- **Demo Live**: [sabia2.vercel.app](https://sabia2.vercel.app)
-- **Repositório**: [github.com/gamingteacher/Sabia2](https://github.com/gamingteacher/Sabia2)
+- **Demo Live**: [sabia-ufmg.vercel.app](https://sabia-ufmg.vercel.app)
+- **Repositório**: [github.com/lab-delta-ufmg/sabIA](https://github.com/lab-delta-ufmg/sabIA)
 - **Supabase**: [supabase.com](https://supabase.com)
 - **Tailwind CSS**: [tailwindcss.com](https://tailwindcss.com)
 - **Vite**: [vitejs.dev](https://vitejs.dev)
