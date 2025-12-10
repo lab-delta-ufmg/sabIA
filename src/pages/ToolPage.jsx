@@ -15,15 +15,26 @@ const ToolPage = () => {
 
   // Filtrar ferramentas baseado na busca e tag selecionada
   const filteredFerramentas = useMemo(() => {
-    return ferramentas.filter(ferramenta => {
-      const matchesSearch = ferramenta.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           (ferramenta.funcao && ferramenta.funcao.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                           (ferramenta.como_pode_ajudar && ferramenta.como_pode_ajudar.toLowerCase().includes(searchTerm.toLowerCase()))
+    // 1) cria uma cópia e ordena A → Z pelo nome
+    const sorted = [...ferramentas].sort((a, b) =>
+      a.nome.localeCompare(b.nome, 'pt-BR', { sensitivity: 'base' })
+    )
+
+    // 2) aplica filtros em cima da lista ordenada
+    return sorted.filter((ferramenta) => {
+      const termo = searchTerm.toLowerCase()
+
+      const matchesSearch =
+        ferramenta.nome.toLowerCase().includes(termo) ||
+        (ferramenta.funcao &&
+          ferramenta.funcao.toLowerCase().includes(termo)) ||
+        (ferramenta.como_pode_ajudar &&
+          ferramenta.como_pode_ajudar.toLowerCase().includes(termo))
       
       const matchesTag =
         selectedTags.length === 0 ||
         (ferramenta.tags &&
-          selectedTags.every(tag => ferramenta.tags.includes(tag)))
+          selectedTags.every((tag) => ferramenta.tags.includes(tag)))
       
       return matchesSearch && matchesTag
     })
