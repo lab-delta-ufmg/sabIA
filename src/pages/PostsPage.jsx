@@ -71,18 +71,35 @@ const PostsPage = () => {
   return (
     <div className="min-h-screen bg-background pb-12">
       {/* Header */}
-      <header className="flex text-primary max-w-4xl mx-auto px-8 justify-between">
-        {/* Ícone do pássaro (simplificado) */}
-        <div className="flex items-center">
-          <img className="w-40 h-40" src="/logobig.png" alt="Logo Sabia" />
-          <div className="text-left">
-            <h1 className="text-3xl font-bold mb-2">Posts e Artigos</h1>
-            <p className="text-primary-100">
-              Artigos e conteúdos sobre ferramentas de IA para ensino de línguas
+      <div className="bg-primary text-text-clear pt-4 pb-12 relative">
+        <div className="max-w-4xl mx-auto px-6">
+
+          {/* Botão de voltar com ícone da logo */}
+          <button
+            onClick={() => navigate(-1)}
+            className="absolute left-4 top-4 flex items-center p-02"
+            title="Voltar"
+          >
+            <div className="w-32 h-32 ml-32 bg-text-clear/100 backdrop-blur-md rounded-full flex items-center justify-center shadow-md hover:bg-text-clear/80 transition">
+              <img
+                src="/logobig.png"
+                alt="Voltar"
+                className="w-24 h-24"
+              />
+            </div>
+          </button>
+
+          <div className="flex flex-col items-center mt-6">
+            <h1 className="text-3xl md:text-4xl text-text-clear font-bold mb-2 mt-0">
+              Posts e Artigos
+            </h1>
+            <p className="text-lg text-text-clear">
+              Explore nosso conteúdo sobre Inteligência Articial e Aprendizagem de Línguas
             </p>
           </div>
+
         </div>
-      </header>
+      </div>
 
       {/* Filtros */}
       <section className="max-w-6xl mx-auto bg-white/80 backdrop-blur-md rounded-lg shadow-sm sticky top-0 z-10">

@@ -8,23 +8,33 @@ const SobrePage = () => {
   return (
     <div className="min-h-screen bg-bakground">
       {/* Header da página */}
-      <div className="bg-primary text-text-clear py-12">
+    <div className="bg-primary text-text-clear pt-4 pb-12 relative">
         <div className="max-w-4xl mx-auto px-6">
+
+        {/* Botão de voltar com ícone da logo */}
           <button
             onClick={() => navigate(-1)}
-            className="inline-flex items-center text-text-clear/80 hover:text-text-clear mb-6 transition-colors"
+          className="absolute left-4 top-4 flex items-center p-02"
+          title="Voltar"
           >
-            <ChevronLeft className="w-5 h-5 mr-2" />
-            Voltar
-          </button>
-          
-          <div className="text-center">
-            <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <div className="w-10 h-10 bg-secondary rounded-full"></div>
-            </div>
-            <h1 className="text-3xl md:text-4xl text-text-clear font-bold mb-2">Sobre O SabIA</h1>
-            <p className="text-lg text-text-clear">Conheça nossa plataforma de curadoria</p>
+          <div className="w-32 h-32 ml-32 bg-text-clear/100 backdrop-blur-md rounded-full flex items-center justify-center shadow-md hover:bg-text-clear/80 transition">
+            <img
+              src="/logobig.png"
+              alt="Voltar"
+              className="w-24 h-24"
+            />
           </div>
+        </button>
+
+        <div className="flex flex-col items-center mt-6">
+          <h1 className="text-3xl md:text-4xl text-text-clear font-bold mb-2 mt-0">
+            Sobre O SabIA
+          </h1>
+          <p className="text-lg text-text-clear">
+            Conheça nossa plataforma de curadoria
+          </p>
+        </div>
+
         </div>
       </div>
 
