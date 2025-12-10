@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import { ExternalLink, Search, Filter } from 'lucide-react'
 import { useFerramentasStore } from '../stores'
+import { useNavigate } from 'react-router-dom'
 
 const ToolPage = () => {
   const { ferramentas, loading, error, loadFerramentas } = useFerramentasStore()
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedTags, setSelectedTags] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     loadFerramentas()
