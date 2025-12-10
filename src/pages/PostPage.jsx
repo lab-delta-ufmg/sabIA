@@ -25,7 +25,7 @@ const PostPage = () => {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Carregando post...</p>
+          <p className="text-text-light">Carregando post...</p>
         </div>
       </div>
     )
@@ -83,7 +83,7 @@ const PostPage = () => {
       </div>
 
       {/* Navegação */}
-      <section className="max-w-6xl mx-auto bg-white/80 backdrop-blur-md rounded-lg shadow-sm sticky top-0 z-10">
+      <section className="max-w-6xl mt-6 mx-auto bg-white/80 backdrop-blur-md rounded-lg shadow-sm sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <button
@@ -106,7 +106,7 @@ const PostPage = () => {
       </section>
 
       {/* Conteúdo principal */}
-      <main className="max-w-6xl mx-auto px-4 py-8">
+      <main className="max-w-6xl mx-auto px-4 py-6">
         {/* Card do post */}
         <article className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden">
           {/* Header do card */}

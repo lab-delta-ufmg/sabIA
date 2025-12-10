@@ -83,7 +83,7 @@ const CategoriasPage = () => {
               />
             </div>
           </button>
-          
+
           <div className="flex flex-col items-center mt-6">
             <h1 className="text-3xl md:text-4xl text-text-clear font-bold mb-2 mt-0">
               Conheça as Categorias
@@ -97,17 +97,17 @@ const CategoriasPage = () => {
       </div>
 
       {/* Conteúdo principal */}
-      <div className="max-w-6xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-6 py-6">
         {/* Introdução */}
-        <div className="bg-white text-text-light rounded-lg shadow-md p-8 md:p-12 mb-8">
+        <div className="bg-white text-text-light rounded-lg shadow-md p-8 mb-8">
           <div className="text-center mb-2">
-            <p className="text-lg leading-relaxed mb-6 text-justify">
+            <p className="leading-relaxed mb-6 text-justify">
               Cada ferramenta no sabIÁ é classificada em uma ou mais categorias linguístico-pedagógicas, 
               que ajudam você a navegar e encontrar recursos alinhados aos seus objetivos.
             </p>
             
             <div className="bg-primary/10 rounded-lg p-6 border-l-4 border-primary">
-              <p className="">
+              <p className="font-bold">
                 As categorias não são apenas técnicas, mas organizadas com foco em práticas linguísticas e educacionais.
               </p>
             </div>
@@ -119,7 +119,7 @@ const CategoriasPage = () => {
           {categorias.map((categoria, index) => (
             <div 
               key={index}
-              className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow border-l-4 border-transparent hover:border-primary"
+              className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow border-l-4 border-transparent hover:border-primary"
             >
               <div className="flex items-start mb-4">
                 <span className="text-3xl mr-3 flex-shrink-0">{categoria.emoji}</span>
@@ -147,7 +147,7 @@ const CategoriasPage = () => {
           </div>
 
           {/* Navegação para outras páginas */}
-          <div className="mt-12 pt-8 border-t border-text-dark">
+          <div className="mt-12 pt-6 border-t border-text-dark">
             <h3 className="text-lg font-semibold text-text-dark mb-4">Explore mais</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <button

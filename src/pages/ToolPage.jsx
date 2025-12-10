@@ -30,12 +30,12 @@ const ToolPage = () => {
           ferramenta.funcao.toLowerCase().includes(termo)) ||
         (ferramenta.como_pode_ajudar &&
           ferramenta.como_pode_ajudar.toLowerCase().includes(termo))
-      
+
       const matchesTag =
         selectedTags.length === 0 ||
         (ferramenta.tags &&
           selectedTags.every((tag) => ferramenta.tags.includes(tag)))
-      
+
       return matchesSearch && matchesTag
     })
   }, [ferramentas, searchTerm, selectedTags])
@@ -109,79 +109,79 @@ const ToolPage = () => {
               Ferramentas de IA
             </h1>
             <p className="text-lg text-text-clear">
-                  Explore nossa curadoria de ferramentas de inteligência artificial para ensino de línguas
-                </p>
+              Explore nossa curadoria de ferramentas de inteligência artificial para ensino de línguas
+            </p>
           </div>
 
+        </div>
+      </div>
+
+      {/* Filtros */}
+      <section className="max-w-6xl mx-auto mt-6 bg-white/80 backdrop-blur-md rounded-lg shadow-sm">
+        <div className="max-w-6xl mx-auto px-4 py-4">
+          <div className="flex flex-col lg:flex-row lg:items-start gap-4">
+            {/* Barra de busca  + Contador de ferramentas*/}
+            <div className="lg:w-1/3 w-full min-w-[300px] grid gap-2">
+
+              {/* Barra de busca */}
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6" />
+                <input
+                  type="text"
+                  placeholder="Buscar ferramentas..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                />
               </div>
+
+              {/* Contador de ferramentas */}
+              <div className="text-sm text-text-dark">
+                {filteredFerramentas.length} ferramenta{filteredFerramentas.length !== 1 ? 's' : ''} encontrada{filteredFerramentas.length !== 1 ? 's' : ''}
+              </div>
+
             </div>
 
-                {/* Filtros */}
-                <section className="max-w-6xl mx-auto bg-white/80 backdrop-blur-md rounded-lg shadow-sm sticky top-0 z-10">
-            <div className="max-w-6xl mx-auto px-4 py-4">
-              <div className="flex flex-col lg:flex-row lg:items-start gap-4">
-                {/* Barra de busca  + Contador de ferramentas*/}
-                <div className="lg:w-1/3 w-full min-w-[300px] grid gap-2">
+            {/* Filtro por tags */}
+            <div className="lg:w-4/7 w-full min-w-[300px] flex flex-wrap gap-2 items-start lg:self-center text-text-dark font-bold">
+              <Filter className="text-text-dark  w-6 h-6" />
 
-                  {/* Barra de busca */}
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6" />
-                    <input
-                      type="text"
-                      placeholder="Buscar ferramentas..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    />
-                  </div>
+              {/* Botão "Todas" */}
+              <button
+                type="button"
+                onClick={() => setSelectedTags([])}
+                className={`px-3 py-1 rounded-full border text-xs ${
+                  selectedTags.length === 0
+                    ? 'bg-primary text-white border-primary'
+                    : 'bg-white text-text-dark border-gray-300'
+                }`}
+              >
+                Todas
+              </button>
 
-                  {/* Contador de ferramentas */}
-                  <div className="text-sm text-text-dark">
-                    {filteredFerramentas.length} ferramenta{filteredFerramentas.length !== 1 ? 's' : ''} encontrada{filteredFerramentas.length !== 1 ? 's' : ''}
-                  </div>
-
-                </div>
-
-                {/* Filtro por tags */}
-              <div className="lg:w-4/7 w-full min-w-[300px] flex flex-wrap gap-2 items-start lg:self-center text-text-dark font-bold">
-                <Filter className="text-text-dark  w-6 h-6" />
-
-                {/* Botão "Todas" */}
-                <button
-                  type="button"
-                  onClick={() => setSelectedTags([])}
-                  className={`px-3 py-1 rounded-full border text-xs ${
-                    selectedTags.length === 0
-                      ? 'bg-primary text-white border-primary'
-                      : 'bg-white text-text-dark border-gray-300'
-                  }`}
-                >
-                  Todas
-                </button>
-
-                {/* Chips de tags */}
-                {allTags.map(tag => {
-                  const isSelected = selectedTags.includes(tag)
-                  return (
-                    <button
-                      key={tag}
-                      type="button"
-                      onClick={() =>
-                        setSelectedTags(prev =>
-                          isSelected ? prev.filter(t => t !== tag) : [...prev, tag]
-                        )
-                      }
-                      className={`px-3 py-1 rounded-full border text-sm ${
-                        isSelected
-                          ? 'bg-primary text-white border-primary'
-                          : 'bg-white text-text-dark border-gray-300'
-                      }`}
-                    >
-                      {tag}
-                    </button>
-                  )
-                })}
-              </div>
+              {/* Chips de tags */}
+              {allTags.map(tag => {
+                const isSelected = selectedTags.includes(tag)
+                return (
+                  <button
+                    key={tag}
+                    type="button"
+                    onClick={() =>
+                      setSelectedTags(prev =>
+                        isSelected ? prev.filter(t => t !== tag) : [...prev, tag]
+                      )
+                    }
+                    className={`px-3 py-1 rounded-full border text-sm ${
+                      isSelected
+                        ? 'bg-primary text-white border-primary'
+                        : 'bg-white text-text-dark border-gray-300'
+                    }`}
+                  >
+                    {tag}
+                  </button>
+                )
+              })}
+            </div>
           </div>
         </div>
       </section>
@@ -237,7 +237,7 @@ const ToolPage = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     <div>
                       <h4 className="text-sm font-semibold text-text-dark mb-1">Função</h4>
-                      <p className="text-sm text-text-dark">
+                      <p className="text-sm text-text-light">
                         {ferramenta.funcao || 'Não informado'}
                       </p>
                     </div>
@@ -268,6 +268,7 @@ const ToolPage = () => {
                   {/* Como pode ajudar */}
                   {ferramenta.como_pode_ajudar && (
                     <div>
+                      <h4 className="text-sm font-semibold text-text-dark mb-1">Como pode ajudar</h4>
                       <p className="text-sm text-text-light leading-relaxed line-clamp-3 text-justify">
                         {ferramenta.como_pode_ajudar}
                       </p>

@@ -7,16 +7,16 @@ const SobrePage = () => {
 
   return (
     <div className="min-h-screen bg-bakground">
-      {/* Header da página */}
+    {/* Header da página */}
     <div className="bg-primary text-text-clear pt-4 pb-12 relative">
-        <div className="max-w-4xl mx-auto px-6">
+      <div className="max-w-4xl mx-auto px-6">
 
         {/* Botão de voltar com ícone da logo */}
-          <button
-            onClick={() => navigate(-1)}
+        <button
+          onClick={() => navigate(-1)}
           className="absolute left-4 top-4 flex items-center p-02"
           title="Voltar"
-          >
+        >
           <div className="w-32 h-32 ml-32 bg-text-clear/100 backdrop-blur-md rounded-full flex items-center justify-center shadow-md hover:bg-text-clear/80 transition">
             <img
               src="/logobig.png"
@@ -35,14 +35,14 @@ const SobrePage = () => {
           </p>
         </div>
 
-        </div>
       </div>
+    </div>
 
       {/* Conteúdo principal */}
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        <div className="bg-white rounded-lg shadow-md p-8 md:p-12">          
+      <div className="max-w-4xl mx-auto px-6 py-6">
+        <div className="bg-white rounded-lg shadow-md p-8">          
           <div className="prose prose-lg max-w-none text-text-light text-justify leading-relaxed">
-            <p className="mb-6">
+            <p className="mb-4">
               O sabIA é uma plataforma de curadoria e exploração de ferramentas de inteligência artificial 
               aplicadas ao ensino e aprendizagem de línguas. Pensado como um espaço acessível, educativo e 
               colaborativo, o sabIÁ permite que estudantes, educadores e curiosos descubram recursos 
@@ -57,7 +57,7 @@ const SobrePage = () => {
           </div>
 
           {/* Card de destaque */}
-          <div className="mt-8 bg-background rounded-lg p-6 border-l-4 border-primary">
+          <div className="mt-4 bg-background rounded-lg p-6 border-l-4 border-primary">
             <div className="flex items-start">
               <div className="flex-shrink-0">
                 <Info className="w-6 h-6 text-primary mt-1" />
@@ -73,7 +73,7 @@ const SobrePage = () => {
           </div>
 
           {/* Navegação para outras páginas */}
-          <div className="mt-12 pt-8 border-t border-text-dark">
+          <div className="mt-8 pt-4 border-t border-text-dark">
             <h3 className="text-lg font-semibold text-text-dark mb-4">Explore mais</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <button

@@ -25,7 +25,7 @@ const CuradoriaPage = () => {
               />
             </div>
           </button>
-          
+
           <div className="flex flex-col items-center mt-6">
             <h1 className="text-3xl md:text-4xl text-text-clear font-bold mb-2 mt-0">
               Como funciona a curadoria no sabIA
@@ -39,17 +39,17 @@ const CuradoriaPage = () => {
       </div>
 
       {/* Conteúdo principal */}
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        <div className="bg-white text-text-light rounded-lg shadow-md p-8 md:p-12">
+      <div className="max-w-4xl mx-auto px-6 py-6">
+        <div className="bg-white text-text-light rounded-lg shadow-md p-8">
           
           {/* Introdução */}
           <div className="mb-10">
-            <p className="leading-relaxed mb-6 text-justify">
+            <p className="leading-relaxed mb-4 text-justify">
               O sabIÁ nasceu para ajudar estudantes, professores e curiosos a explorar de forma crítica 
               e criativa as ferramentas de inteligência artificial aplicadas à aprendizagem de línguas.
             </p>
             
-            <p className="leading-relaxed mb-6 text-justify">
+            <p className="leading-relaxed mb-4 text-justify">
               Para isso, não basta listar ferramentas: é preciso organizar, contextualizar e explicar 
               como cada uma delas pode (ou não) contribuir para processos de ensino e aprendizagem.
             </p>
@@ -74,7 +74,7 @@ const CuradoriaPage = () => {
 
           {/* Seção Para que serve */}
           <div className="mb-10">
-            <div className="flex items-center mb-4">
+            <div className="flex items-center mb-2">
               <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
                 <Info className="w-6 h-6 text-primary" />
               </div>
@@ -110,8 +110,8 @@ const CuradoriaPage = () => {
           </div>
 
           {/* Seção Como pode ajudar */}
-          <div className="mb-10 text-text-light">
-            <div className="flex items-center mb-4">
+          <div className="mb-4 text-text-light">
+            <div className="flex items-center mb-2">
               <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
                 <BookOpen className="w-6 h-6 text-primary" />
               </div>
@@ -147,7 +147,7 @@ const CuradoriaPage = () => {
           </div>
 
           {/* Navegação para outras páginas */}
-          <div className="mt-12 pt-8 border-t border-text-dark">
+          <div className="mt-8 pt-6 border-t border-text-dark">
             <h3 className="text-lg font-semibold text-text-dark mb-4">Explore mais</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <button
