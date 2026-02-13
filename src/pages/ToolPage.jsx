@@ -225,7 +225,7 @@ const ToolPage = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredFerramentas.map((ferramenta) => (
-              <div key={ferramenta.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden">
+              <div key={ferramenta.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden flex flex-col h-full">
                 {/* Header do card */}
                 <div className="p-4 border-b border-gray-100">
                   <div className="flex items-center justify-between mb-[-6px]">
@@ -267,7 +267,7 @@ const ToolPage = () => {
                 </div>
 
                 {/* Conteúdo do card */}
-                <div className="p-4">
+                <div className="p-4 flex-1">
                   {/* Função e Tags */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     <div>
