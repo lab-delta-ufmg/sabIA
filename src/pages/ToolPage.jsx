@@ -62,6 +62,31 @@ const ToolPage = () => {
     }
   }
 
+  const getGratuidadeConfig = (tipo) => {
+  switch (tipo) {
+    case 'gratuita':
+      return {
+        label: 'Gratuita',
+        className: 'bg-green-100 text-green-700'
+      }
+    case 'freemium':
+      return {
+        label: 'Freemium',
+        className: 'bg-yellow-100 text-yellow-700'
+      }
+    case 'open_source':
+      return {
+        label: 'Open Source',
+        className: 'bg-blue-100 text-blue-700'
+      }
+    default:
+      return {
+        label: 'Não informado',
+        className: 'bg-gray-100 text-gray-600'
+      }
+  }
+} 
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -204,9 +229,19 @@ const ToolPage = () => {
                 {/* Header do card */}
                 <div className="p-4 border-b border-gray-100">
                   <div className="flex items-center justify-between mb-[-6px]">
-                    <h3 className="text-lg font-bold text-text-dark flex-1 mr-3">
-                      {ferramenta.nome}
-                    </h3>
+                    <div className="flex flex-col flex-1 mr-3">
+                      <h3 className="text-lg font-bold text-text-dark">
+                        {ferramenta.nome}
+                      </h3>
+
+                      <span
+                        className={`mt-1 w-fit px-2 py-0.5 text-xs font-semibold rounded-full ${
+                          getGratuidadeConfig(ferramenta.gratuidade).className
+                        }`}
+                      >
+                        {getGratuidadeConfig(ferramenta.gratuidade).label}
+                      </span>
+                    </div>
                     {ferramenta.link_site && (
                       <div className="flex items-center gap-2">
                         {getFaviconUrl(ferramenta.link_site) && (
@@ -236,7 +271,7 @@ const ToolPage = () => {
                   {/* Função e Tags */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     <div>
-                      <h4 className="text-sm font-semibold text-text-dark mb-1">Função</h4>
+                      <h4 className="text-sm font-semibold text-text-dark mb-1">Para que serve</h4>
                       <p className="text-sm text-text-light">
                         {ferramenta.funcao || 'Não informado'}
                       </p>
