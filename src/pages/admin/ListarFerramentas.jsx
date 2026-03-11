@@ -19,10 +19,105 @@ const ListarFerramentas = () => {
   const [sortBy, setSortBy] = useState('nome') // 'nome' ou 'created_at'
   const [sortOrder, setSortOrder] = useState('asc') // 'asc' ou 'desc'
   const [nameFilter, setNameFilter] = useState('')
+  const [tagSuggestions, setTagSuggestions] = useState([])
+  const [showSuggestions, setShowSuggestions] = useState({ newRow: false, editing: false })
+  const [activeSuggestion, setActiveSuggestion] = useState(-1)
+  const newTagInputRef = React.useRef(null)
+  const editTagInputRef = React.useRef(null)
 
   useEffect(() => {
     loadFerramentas()
   }, [loadFerramentas])
+
+  // Extract all unique tags from existing ferramentas
+  const allTags = useMemo(() => {
+    const tagsSet = new Set()
+    ferramentas.forEach(ferramenta => {
+      if (Array.isArray(ferramenta.tags)) {
+        ferramenta.tags.forEach(tag => tagsSet.add(tag))
+      }
+    })
+    return Array.from(tagsSet).sort()
+  }, [ferramentas])
+
+  // Get current word being typed in tags input
+  const getCurrentWord = (text, cursorPos) => {
+    const beforeCursor = text.slice(0, cursorPos)
+    const afterComma = beforeCursor.split(',').pop()
+    return afterComma.trim()
+  }
+
+  // Filter suggestions based on current input
+  const getFilteredSuggestions = (currentValue, cursorPos) => {
+    const currentWord = getCurrentWord(currentValue, cursorPos)
+    if (!currentWord) return []
+    
+    return allTags.filter(tag => 
+      tag.toLowerCase().startsWith(currentWord.toLowerCase()) &&
+      !currentValue.split(',').map(t => t.trim()).includes(tag)
+    )
+  }
+
+  const handleTagInputChange = (value, isNewRow, e) => {
+    const cursorPos = e.target.selectionStart
+    const suggestions = getFilteredSuggestions(value, cursorPos)
+    
+    setTagSuggestions(suggestions)
+    setShowSuggestions({
+      newRow: isNewRow && suggestions.length > 0,
+      editing: !isNewRow && suggestions.length > 0
+    })
+    setActiveSuggestion(-1)
+
+    if (isNewRow) {
+      handleNewRowChange('tags', value)
+    } else {
+      handleEditingChange('tags', value)
+    }
+  }
+
+  const insertSuggestion = (suggestion, isNewRow, inputRef) => {
+    const currentValue = isNewRow ? newRow.tags : editingData.tags
+    const cursorPos = inputRef.current?.selectionStart || currentValue.length
+    
+    const beforeCursor = currentValue.slice(0, cursorPos)
+    const afterCursor = currentValue.slice(cursorPos)
+    
+    const parts = beforeCursor.split(',')
+    parts[parts.length - 1] = ' ' + suggestion + ', '
+    
+    const newValue = parts.join(',') + afterCursor
+    
+    if (isNewRow) {
+      handleNewRowChange('tags', newValue)
+    } else {
+      handleEditingChange('tags', newValue)
+    }
+    
+    setShowSuggestions({ newRow: false, editing: false })
+    setTagSuggestions([])
+    inputRef.current?.focus()
+  }
+
+  const handleTagKeyDown = (e, isNewRow, inputRef) => {
+    const suggestions = tagSuggestions
+    
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      setActiveSuggestion(prev => 
+        prev < suggestions.length - 1 ? prev + 1 : prev
+      )
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      setActiveSuggestion(prev => prev > 0 ? prev - 1 : -1)
+    } else if (e.key === 'Enter' && activeSuggestion >= 0) {
+      e.preventDefault()
+      insertSuggestion(suggestions[activeSuggestion], isNewRow, inputRef)
+    } else if (e.key === 'Escape') {
+      setShowSuggestions({ newRow: false, editing: false })
+      setTagSuggestions([])
+    }
+  }
 
   const handleDelete = async (id, nome) => {
     if (window.confirm(`Tem certeza que deseja excluir a ferramenta "${nome}"?`)) {
@@ -175,13 +270,33 @@ const ListarFerramentas = () => {
     if (isEditing) {
       if (field === 'tags') {
         return (
-          <textarea
-            value={editingData[field] || ''}
-            onChange={(e) => handleEditingChange(field, e.target.value)}
-            placeholder="Tag1, Tag2, Tag3"
-            className="w-full p-2 border border-gray-300 rounded text-sm resize-none"
-            rows="2"
-          />
+          <div className="relative">
+            <textarea
+              ref={editTagInputRef}
+              value={editingData[field] || ''}
+              onChange={(e) => handleTagInputChange(e.target.value, false, e)}
+              onKeyDown={(e) => handleTagKeyDown(e, false, editTagInputRef)}
+              onBlur={() => setTimeout(() => setShowSuggestions(prev => ({ ...prev, editing: false })), 200)}
+              placeholder="Tag1, Tag2, Tag3"
+              className="w-full p-2 border border-gray-300 rounded text-sm resize-none"
+              rows="2"
+            />
+            {showSuggestions.editing && tagSuggestions.length > 0 && (
+              <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg max-h-40 overflow-y-auto">
+                {tagSuggestions.map((tag, index) => (
+                  <div
+                    key={tag}
+                    onClick={() => insertSuggestion(tag, false, editTagInputRef)}
+                    className={`px-3 py-2 cursor-pointer text-sm ${
+                      index === activeSuggestion ? 'bg-primary text-white' : 'hover:bg-gray-100'
+                    }`}
+                  >
+                    {tag}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         )
       }
       
@@ -239,13 +354,33 @@ const ListarFerramentas = () => {
   const renderNewRowCell = (field) => {
     if (field === 'tags') {
       return (
-        <textarea
-          value={newRow[field] || ''}
-          onChange={(e) => handleNewRowChange(field, e.target.value)}
-          placeholder="Tag1, Tag2, Tag3"
-          className="w-full p-2 border border-gray-300 rounded text-sm resize-none"
-          rows="2"
-        />
+        <div className="relative">
+          <textarea
+            ref={newTagInputRef}
+            value={newRow[field] || ''}
+            onChange={(e) => handleTagInputChange(e.target.value, true, e)}
+            onKeyDown={(e) => handleTagKeyDown(e, true, newTagInputRef)}
+            onBlur={() => setTimeout(() => setShowSuggestions(prev => ({ ...prev, newRow: false })), 200)}
+            placeholder="Tag1, Tag2, Tag3"
+            className="w-full p-2 border border-gray-300 rounded text-sm resize-none"
+            rows="2"
+          />
+          {showSuggestions.newRow && tagSuggestions.length > 0 && (
+            <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg max-h-40 overflow-y-auto">
+              {tagSuggestions.map((tag, index) => (
+                <div
+                  key={tag}
+                  onClick={() => insertSuggestion(tag, true, newTagInputRef)}
+                  className={`px-3 py-2 cursor-pointer text-sm ${
+                    index === activeSuggestion ? 'bg-primary text-white' : 'hover:bg-gray-100'
+                  }`}
+                >
+                  {tag}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       )
     }
     
@@ -346,18 +481,18 @@ const ListarFerramentas = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {/* Linha para nova ferramenta - sempre no topo */}
-                <tr className="bg-green-50 border-b-2 border-green-200">
+                <tr className="bg-gray-100 border-b-2 border-gray-200">
                   <td className="px-4 py-3">
-                    {renderNewRowCell('nome')}
+                    {renderNewRowCell('Nome')}
                   </td>
                   <td className="px-4 py-3">
                     {renderNewRowCell('link_site')}
                   </td>
                   <td className="px-4 py-3">
-                    {renderNewRowCell('funcao')}
+                    {renderNewRowCell('Função')}
                   </td>
                   <td className="px-4 py-3">
-                    {renderNewRowCell('como_pode_ajudar')}
+                    {renderNewRowCell('Como pode ajudar')}
                   </td>
                   <td className="px-4 py-3">
                     {renderNewRowCell('tags')}
@@ -369,7 +504,7 @@ const ListarFerramentas = () => {
                       className="text-green-600 hover:text-green-900 transition-colors disabled:opacity-50"
                       title="Adicionar ferramenta"
                     >
-                      <Plus className="w-4 h-4" />
+                      <Plus className="w-8 h-8" />
                     </button>
                   </td>
                 </tr>

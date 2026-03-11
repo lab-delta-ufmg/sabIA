@@ -11,7 +11,7 @@ export default {
         secondary: "#fed303",
         background: "#f8e8dd",
         "text-dark": "#2e2e2e", 
-        "text-light": "#1976d2",
+        "text-light": "#2e2e2e",
         "text-clear": "#f8f8f8",
       },
     },
