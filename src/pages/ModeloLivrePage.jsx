@@ -9,15 +9,14 @@ export default function ModeloLivrePage() {
     <div className="min-h-screen bg-background">
       {/* Header com navegação */}
       <div className="bg-primary text-text-clear pt-4 pb-12 relative">
-        <div className="max-w-4xl mx-auto px-6">
-
+      <div className="grid grid-cols-3 grid-rows-1 max-w-4xl mx-auto px-6">
           {/* Botão de voltar com ícone da logo */}
           <button
             onClick={() => navigate('/')}
-            className="absolute left-4 top-4 flex items-center p-02"
+            className="row-span-2 flex items-center"
             title="Voltar"
           >
-            <div className="w-32 h-32 ml-32 bg-text-clear/100 backdrop-blur-md rounded-full flex items-center justify-center shadow-md hover:bg-text-clear/80 transition">
+            <div className="w-32 h-32 bg-text-clear/100 backdrop-blur-md rounded-full flex items-center justify-center shadow-md hover:bg-text-clear/80 transition">
               <img
                 src="/logobig.png"
                 alt="Voltar"
@@ -26,7 +25,7 @@ export default function ModeloLivrePage() {
             </div>
           </button>
 
-          <div className="flex flex-col items-center mt-6">
+          <div className="col-span-2 items-center mt-6">
             <h1 className="text-3xl md:text-4xl text-text-clear font-bold mb-2 mt-0">
               Modelo L.I.V.R.E.
             </h1>
@@ -50,11 +49,11 @@ export default function ModeloLivrePage() {
           {/* Cada letra do modelo */}
           <div className="space-y-6 mb-2">
             {/* L - Linguagem */}
-            <div className="bg-text-light/70 rounded-2xl shadow-lg overflow-hidden border-l-8 border-text-light">
+            <div className="bg-primary/80 rounded-2xl shadow-lg overflow-hidden">
               <div className="flex items-center p-4 text-white">
                 <div className="text-6xl font-black mr-8 ml-2 flex-shrink-0">L</div>
                   <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-text-dark">Linguagem</h2>
+                    <h2 className="text-2xl font-bold text-text-clear">Linguagem</h2>
                     <p className="text-lg leading-relaxed opacity-95">
                       A ferramenta favorece práticas reais de linguagem ou apenas respostas mecânicas?
                     </p>
@@ -63,11 +62,11 @@ export default function ModeloLivrePage() {
             </div>
 
             {/* I - Intencionalidade */}
-            <div className="bg-text-dark/60 rounded-2xl shadow-lg overflow-hidden border-l-8 border-text-dark">
-              <div className="flex items-center p-4 text-white">
+            <div className="bg-primary/80 rounded-2xl shadow-lg overflow-hidden">
+              <div className="flex items-center p-4 text-text-clear">
                 <div className="text-6xl font-black mr-10 ml-3 flex-shrink-0">I</div>
                   <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-text-dark">Intencionalidade</h2>
+                    <h2 className="text-2xl font-bold text-text-clear">Intencionalidade</h2>
                     <p className="text-lg leading-relaxed opacity-95">
                       O usuário tem clareza sobre o objetivo do uso? É guiado ou apenas replicado?
                     </p>
@@ -76,11 +75,11 @@ export default function ModeloLivrePage() {
             </div>
 
               {/* V - Visibilidade dos Processos */}
-              <div className="bg-text-light/70 rounded-2xl shadow-lg overflow-hidden border-l-8 border-text-light">
-                <div className="flex items-center p-4 text-white">
+              <div className="bg-primary/80 rounded-2xl shadow-lg overflow-hidden">
+                <div className="flex items-center p-4 text-text-clear">
                   <div className="text-6xl font-black mr-8 flex-shrink-0">V</div>
                   <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-text-dark">Visibilidade dos Processos</h2>
+                    <h2 className="text-2xl font-bold text-text-clear">Visibilidade dos Processos</h2>
                     <p className="text-lg leading-relaxed opacity-95">
                       A ferramenta permite compreender como a IA funciona ou é uma "caixa-preta"?
                     </p>
@@ -89,11 +88,11 @@ export default function ModeloLivrePage() {
               </div>
 
               {/* R - Relevância Educacional */}
-              <div className="bg-text-dark/60 rounded-2xl shadow-lg overflow-hidden border-l-8 border-text-dark">
-                <div className="flex items-center p-4 text-white">
-                  <div className="text-6xl font-black mr-8 flex-shrink-0">R</div>
+              <div className="bg-primary/80 rounded-2xl shadow-lg overflow-hidden">
+              <div className="flex items-center p-4 text-text-clear">
+                <div className="text-6xl font-black mr-8 flex-shrink-0">R</div>
                   <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-text-dark">Relevância Educacional</h2>
+                    <h2 className="text-2xl font-bold text-text-clear">Relevância Educacional</h2>
                     <p className="text-lg leading-relaxed opacity-95">
                       A proposta da ferramenta se conecta a objetivos de aprendizagem ou só entretém?
                     </p>
@@ -102,11 +101,11 @@ export default function ModeloLivrePage() {
               </div>
 
               {/* E - Ética e Autoria */}
-              <div className="bg-text-light/70 rounded-2xl shadow-lg overflow-hidden border-l-8 border-text-light">
-                <div className="flex items-center p-4 ml-2 text-white">
+              <div className="bg-primary/80 rounded-2xl shadow-lg overflow-hidden">
+                <div className="flex items-center p-4 ml-2 text-text-clear">
                   <div className="text-6xl font-black mr-8 flex-shrink-0">E</div>
                   <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-text-dark">Ética e Autoria</h2>
+                    <h2 className="text-2xl font-bold text-text-clear">Ética e Autoria</h2>
                     <p className="text-lg leading-relaxed opacity-95">
                       Há transparência no uso, proteção de dados e reconhecimento de autoria?
                     </p>

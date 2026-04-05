@@ -33,7 +33,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen p-6">
       {/* Hero Section */}
         <section className="text-white py-8">
           <div className="max-w-3xl mx-auto px-10 bg-white rounded-3xl shadow-xl p-8">
