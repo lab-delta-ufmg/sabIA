@@ -85,7 +85,7 @@ const LoginPage = () => {
         {/* Logo */}
         <div className="text-center mb-8">
           <h1 className="logo-mark text-4xl mb-2 text-[var(--cream)]">
-            Sabiá
+            sabIA
           </h1>
           <p className="text-[rgba(251,246,236,0.85)]">
             {isLoginMode ? 'Faça login em sua conta' : 'Crie sua conta'}
