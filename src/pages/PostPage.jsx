@@ -22,7 +22,7 @@ const PostPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-text-light">Carregando post...</p>
@@ -33,14 +33,14 @@ const PostPage = () => {
 
   if (error || !paginaAtual) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600 mb-4">
             {error || 'Post não encontrado'}
           </p>
           <button
             onClick={() => navigate('/posts')}
-            className="bg-primary text-white py-2 px-4 rounded hover:bg-primary/90 transition-colors"
+            className="btn-primary"
           >
             Voltar aos Posts
           </button>
@@ -50,17 +50,18 @@ const PostPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-12">
+    <div className="min-h-screen bg-transparent pb-12">
       {/* Header */}
-      <div className="bg-primary text-text-clear pt-4 pb-12 relative">
-      <div className="grid grid-cols-3 grid-rows-1 max-w-4xl mx-auto px-6">
+      <section className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 py-10">
+        <div className="grid grid-cols-3 grid-rows-1 max-w-4xl mx-auto px-6">
+
           {/* Botão de voltar com ícone da logo */}
           <button
             onClick={() => navigate('/')}
             className="row-span-2 flex items-center"
             title="Voltar"
           >
-            <div className="w-32 h-32 bg-text-clear/100 backdrop-blur-md rounded-full flex items-center justify-center shadow-md hover:bg-text-clear/80 transition">
+            <div className="w-32 h-32 flex items-center justify-center">
               <img
                 src="/logobig.png"
                 alt="Voltar"
@@ -70,30 +71,30 @@ const PostPage = () => {
           </button>
 
           <div className="col-span-2 items-center mt-6">
-            <h1 className="text-3xl md:text-4xl text-text-clear font-bold mb-2 mt-0">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight mb-0">
               Posts e Artigos
             </h1>
-            <p className="text-lg text-text-clear">
+            <p className="text-xs md:text-sm tracking-widest uppercase font-semibold text-primary mb-6 md:mb-8">
               Explore nosso conteúdo sobre Inteligência Articial e Aprendizagem de Línguas
             </p>
           </div>
 
         </div>
-      </div>
+      </section>
 
       {/* Navegação */}
-      <section className="max-w-6xl mt-6 mx-auto bg-white/80 backdrop-blur-md rounded-lg shadow-sm sticky top-0 z-10">
+      <section className="surface-panel max-w-6xl mx-auto sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <button
               onClick={() => navigate('/posts')}
-              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"
+              className="btn-secondary"
             >
               <ArrowLeft className="w-4 h-4" />
               Voltar aos Posts
             </button>
             
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-text-light">
               {new Date(paginaAtual.created_at).toLocaleDateString('pt-BR', {
                 day: '2-digit',
                 month: 'long',
@@ -107,11 +108,11 @@ const PostPage = () => {
       {/* Conteúdo principal */}
       <main className="max-w-6xl mx-auto px-4 py-6">
         {/* Card do post */}
-        <article className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden">
+        <article className="surface-card overflow-hidden">
           {/* Header do card */}
           <div className="p-6 border-b border-gray-100">
             <div className="flex items-start justify-between mb-4">
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-800 flex-1 mr-4">
+              <h1 className="text-2xl md:text-3xl font-bold text-text-dark flex-1 mr-4">
                 {paginaAtual.titulo}
               </h1>
               {paginaAtual.ferramentas && (
@@ -128,15 +129,15 @@ const PostPage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Autor */}
               <div>
-                <h4 className="text-sm font-semibold text-gray-700 mb-1">Autor</h4>
-                <p className="text-sm text-gray-600">
+                <h4 className="text-sm font-semibold text-text-dark mb-1">Autor</h4>
+                <p className="text-sm text-text-light">
                   {paginaAtual.autor || 'Não informado'}
                 </p>
               </div>
               
               {/* Ferramenta relacionada */}
               <div>
-                <h4 className="text-sm font-semibold text-gray-700 mb-1">Ferramenta Relacionada</h4>
+                <h4 className="text-sm font-semibold text-text-dark mb-1">Ferramenta Relacionada</h4>
                 <div className="flex items-center gap-2">
                   {paginaAtual.ferramentas ? (
                     <Link
@@ -146,7 +147,7 @@ const PostPage = () => {
                       {paginaAtual.ferramentas.nome}
                     </Link>
                   ) : (
-                    <span className="text-xs text-gray-400">Nenhuma</span>
+                    <span className="text-xs text-text-light/70">Nenhuma</span>
                   )}
                 </div>
               </div>
@@ -168,7 +169,7 @@ const PostPage = () => {
           {/* Footer do card */}
           <div className="px-6 pb-6">
             <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-              <div className="flex items-center text-sm text-gray-500">
+              <div className="flex items-center text-sm text-text-light">
                 <Calendar className="w-4 h-4 mr-2" />
                 <span>
                   Publicado em {new Date(paginaAtual.created_at).toLocaleDateString('pt-BR', {
@@ -183,7 +184,7 @@ const PostPage = () => {
               {paginaAtual.ferramentas && (
                 <Link
                   to="/ferramentas"
-                  className="text-center bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
+                  className="btn-primary text-sm"
                 >
                   Ver Ferramenta
                 </Link>

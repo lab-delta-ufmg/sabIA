@@ -6,17 +6,18 @@ const CuradoriaPage = () => {
   const navigate = useNavigate()
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header da página */}
-      <div className="bg-primary text-text-clear pt-4 pb-12 relative">
-      <div className="grid grid-cols-3 grid-rows-1 max-w-4xl mx-auto px-6">
+    <div className="min-h-screen bg-transparent">
+      {/* Header */}
+      <section className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 py-10">
+        <div className="grid grid-cols-3 grid-rows-1 max-w-4xl mx-auto px-6">
+
           {/* Botão de voltar com ícone da logo */}
           <button
             onClick={() => navigate('/')}
             className="row-span-2 flex items-center"
             title="Voltar"
           >
-            <div className="w-32 h-32 bg-text-clear/100 backdrop-blur-md rounded-full flex items-center justify-center shadow-md hover:bg-text-clear/80 transition">
+            <div className="w-32 h-32 flex items-center justify-center">
               <img
                 src="/logobig.png"
                 alt="Voltar"
@@ -24,22 +25,21 @@ const CuradoriaPage = () => {
               />
             </div>
           </button>
-
           <div className="col-span-2 items-center mt-6">
-            <h1 className="text-3xl md:text-4xl text-text-clear font-bold mb-2 mt-0">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight mb-0">
               Como funciona a curadoria no sabIA
             </h1>
-            <p className="text-lg text-text-clear">
+           <p className="text-xs md:text-sm tracking-widest uppercase font-semibold text-primary mb-6 md:mb-8">
               Nosso processo de seleção e análise
             </p>
           </div>
 
         </div>
-      </div>
+      </section>
 
       {/* Conteúdo principal */}
-      <div className="max-w-4xl mx-auto px-6 py-6">
-        <div className="bg-white text-text-light rounded-lg shadow-md p-8">
+      <div className="max-w-4xl mx-auto px-6 py-2">
+        <div className="surface-card text-text-light p-8">
           
           {/* Introdução */}
           <div className="mb-10">
@@ -53,7 +53,7 @@ const CuradoriaPage = () => {
               como cada uma delas pode (ou não) contribuir para processos de ensino e aprendizagem.
             </p>
 
-            <div className="bg-primary/10 rounded-lg p-6 border-l-4 border-primary">
+            <div className="surface-accent p-6">
               <p className="font-medium text-justify">
                 Essa é a função da nossa curadoria. Todas as ferramentas incluídas no sabIÁ passam 
                 por um processo de seleção e análise, em que buscamos identificar:
@@ -89,7 +89,7 @@ const CuradoriaPage = () => {
               Aqui você encontrará descrições objetivas e diretas sobre o funcionamento da ferramenta.
             </p>
 
-            <div className="bg-primary/10 rounded-lg p-4 border-l-4 border-primary">
+            <div className="surface-accent p-4">
               <h4 className="font-semibold text-text-light mb-3">Exemplos:</h4>
               <ul className="space-y-2">
                 <li className="flex items-start">
@@ -126,7 +126,7 @@ const CuradoriaPage = () => {
               Aqui você encontrará potenciais educacionais: possibilidades de uso que ampliam a aprendizagem.
             </p>
 
-            <div className="bg-primary/10 rounded-lg p-4 border-l-4 border-primary">
+            <div className="surface-accent p-4">
               <h4 className="font-semibold mb-3">Exemplos:</h4>
               <ul className="space-y-2">
                 <li className="flex items-start">
@@ -145,26 +145,29 @@ const CuradoriaPage = () => {
             </div>
           </div>
 
-          {/* Navegação para outras páginas */}
-          <div className="mt-8 pt-6 border-t border-text-dark">
-            <h3 className="text-lg font-semibold text-text-dark mb-4">Explore mais</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <button
-                onClick={() => navigate('/sobre')}
-                className="text-left p-4 bg-background rounded-lg hover:bg-gray-100 transition-colors border-l-4 border-primary"
-              >
-                <h4 className="font-semibold text-text-dark mb-1">Sobre o sabIA</h4>
-                <p className="text-sm text-text-light">Conheça nossa plataforma e missão</p>
-              </button>
-              
-              <button
-                onClick={() => navigate('/categorias')}
-                className="text-left p-4 bg-background rounded-lg hover:bg-gray-100 transition-colors border-l-4 border-primary"
-              >
-                <h4 className="font-semibold text-text-dark mb-1">Conheça as categorias</h4>
-                <p className="text-sm text-text-light">Veja como organizamos as ferramentas</p>
-              </button>
-            </div>
+        </div>
+      </div>
+
+      {/* Navegação para outras páginas */}
+      <div className="max-w-4xl mx-auto px-6 pb-10">
+        <div className="mt-4 pt-8 border-t border-gray-300">
+          <h3 className="text-lg font-semibold text-ink mb-6">Explore mais</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <button
+              onClick={() => navigate('/sobre')}
+              className="bg-[--ink] text-left p-4 hover:bg-[--ink2] transition-colors rounded-lg"
+            >
+              <h4 className="font-semibold text-[--ochre] mb-1">Sobre o sabIA</h4>
+              <p className="text-sm text-[--cream]">Conheça nossa plataforma e missão</p>
+            </button>
+
+            <button
+              onClick={() => navigate('/categorias')}
+              className="bg-[--ink] text-left p-4 hover:bg-[--ink2] transition-colors rounded-lg"
+            >
+              <h4 className="font-semibold text-[--ochre] mb-1">Conheça as categorias</h4>
+              <p className="text-sm text-[--cream]">Veja como organizamos as ferramentas</p>
+            </button>
           </div>
         </div>
       </div>

@@ -282,13 +282,13 @@ const ListarFerramentas = () => {
               rows="2"
             />
             {showSuggestions.editing && tagSuggestions.length > 0 && (
-              <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg max-h-40 overflow-y-auto">
+              <div className="popup-menu">
                 {tagSuggestions.map((tag, index) => (
                   <div
                     key={tag}
                     onClick={() => insertSuggestion(tag, false, editTagInputRef)}
-                    className={`px-3 py-2 cursor-pointer text-sm ${
-                      index === activeSuggestion ? 'bg-primary text-white' : 'hover:bg-gray-100'
+                    className={`popup-menu-item ${
+                      index === activeSuggestion ? 'bg-[rgba(199,91,44,0.14)] text-[var(--terra)]' : ''
                     }`}
                   >
                     {tag}
@@ -366,13 +366,13 @@ const ListarFerramentas = () => {
             rows="2"
           />
           {showSuggestions.newRow && tagSuggestions.length > 0 && (
-            <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded shadow-lg max-h-40 overflow-y-auto">
+            <div className="popup-menu">
               {tagSuggestions.map((tag, index) => (
                 <div
                   key={tag}
                   onClick={() => insertSuggestion(tag, true, newTagInputRef)}
-                  className={`px-3 py-2 cursor-pointer text-sm ${
-                    index === activeSuggestion ? 'bg-primary text-white' : 'hover:bg-gray-100'
+                  className={`popup-menu-item ${
+                    index === activeSuggestion ? 'bg-[rgba(199,91,44,0.14)] text-[var(--terra)]' : ''
                   }`}
                 >
                   {tag}
@@ -454,27 +454,27 @@ const ListarFerramentas = () => {
           </div>
         )}
 
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden overflow-x-auto">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
                     Nome
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
                     Link
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
                     Função
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
                     Como pode ajudar
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">
                     Tags
                   </th>
-                  <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-20">
+                  <th className="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-20">
                     Ações
                   </th>
                 </tr>
@@ -482,22 +482,22 @@ const ListarFerramentas = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {/* Linha para nova ferramenta - sempre no topo */}
                 <tr className="bg-gray-100 border-b-2 border-gray-200">
-                  <td className="px-4 py-3">
+                  <td className="px-4">
                     {renderNewRowCell('Nome')}
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="px-2">
                     {renderNewRowCell('link_site')}
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="px-2">
                     {renderNewRowCell('Função')}
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="px-2">
                     {renderNewRowCell('Como pode ajudar')}
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="px-2">
                     {renderNewRowCell('tags')}
                   </td>
-                  <td className="px-4 py-3 text-right">
+                  <td className="px-2 text-right">
                     <button
                       onClick={() => handleSave()}
                       disabled={saving || !newRow.nome.trim()}
@@ -513,22 +513,22 @@ const ListarFerramentas = () => {
                   const isEditing = editingId === ferramenta.id
                   return (
                     <tr key={ferramenta.id} className={isEditing ? "bg-blue-50" : "hover:bg-gray-50"}>
-                      <td className="px-4 py-3">
+                      <td className="p-2">
                         {renderCell(ferramenta, 'nome', isEditing)}
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="p-2">
                         {renderCell(ferramenta, 'link_site', isEditing)}
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="p-2">
                         {renderCell(ferramenta, 'funcao', isEditing)}
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="p-2">
                         {renderCell(ferramenta, 'como_pode_ajudar', isEditing)}
                       </td>
-                      <td className="px-4 py-3">
+                      <td className="p-2">
                         {renderCell(ferramenta, 'tags', isEditing)}
                       </td>
-                      <td className="px-4 py-3 text-right">
+                      <td className="p-2 text-right">
                         <div className="flex items-center justify-end gap-1">
                           {isEditing ? (
                             <>

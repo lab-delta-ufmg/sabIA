@@ -1,164 +1,148 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ChevronLeft, CheckCircle } from 'lucide-react'
+
+const dimensions = [
+  {
+    letter: 'L',
+    name: 'Linguagem',
+    description: 'A ferramenta favorece práticas reais de linguagem ou apenas respostas mecânicas?',
+  },
+  {
+    letter: 'I',
+    name: 'Intencionalidade',
+    description: 'O usuário tem clareza sobre o objetivo do uso? É guiado ou apenas replicado?',
+  },
+  {
+    letter: 'V',
+    name: 'Visibilidade dos Processos',
+    description: 'A ferramenta permite compreender como a IA funciona ou é uma "caixa-preta"?',
+  },
+  {
+    letter: 'R',
+    name: 'Relevância Educacional',
+    description: 'A proposta da ferramenta se conecta a objetivos de aprendizagem ou só entretém?',
+  },
+  {
+    letter: 'E',
+    name: 'Ética e Autoria',
+    description: 'Há transparência no uso, proteção de dados e reconhecimento de autoria?',
+  },
+]
 
 export default function ModeloLivrePage() {
   const navigate = useNavigate()
+  const [activeDimension, setActiveDimension] = useState(0)
+  const current = dimensions[activeDimension]
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header com navegação */}
-      <div className="bg-primary text-text-clear pt-4 pb-12 relative">
-      <div className="grid grid-cols-3 grid-rows-1 max-w-4xl mx-auto px-6">
-          {/* Botão de voltar com ícone da logo */}
-          <button
-            onClick={() => navigate('/')}
-            className="row-span-2 flex items-center"
-            title="Voltar"
-          >
-            <div className="w-32 h-32 bg-text-clear/100 backdrop-blur-md rounded-full flex items-center justify-center shadow-md hover:bg-text-clear/80 transition">
-              <img
-                src="/logobig.png"
-                alt="Voltar"
-                className="w-24 h-24"
-              />
-            </div>
-          </button>
+    <div className="min-h-screen bg-transparent">
+      {/* Header Section */}
+      <section className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-32">
+        {/* Centered Header */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          {/* Label */}
+          <p className="text-xs md:text-sm tracking-widest uppercase font-semibold text-primary mb-6">
+            Pensar antes de adotar
+          </p>
 
-          <div className="col-span-2 items-center mt-6">
-            <h1 className="text-3xl md:text-4xl text-text-clear font-bold mb-2 mt-0">
-              Modelo L.I.V.R.E.
-            </h1>
-            <p className="text-lg text-text-clear">
-              Modelo para analisar criticamente o uso de IA na aprendizagem de línguas
-            </p>
-          </div>
+          {/* Title */}
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-tight mb-6">
+            O modelo L.I.V.R.E.
+          </h1>
 
-        </div>
-      </div>
-
-      <div className="max-w-4xl mx-auto px-6 py-6 text-text-light">
-        <div className="bg-white rounded-lg shadow-md p-8 text-text-light">
-          {/* Introdução */}
-          <div className="mb-6">
-            <p className="text-md leading-relaxed text-left max-w-3xl mx-auto text-justify">
-              O modelo L.I.V.R.E. foi criado para orientar estudantes, professores e curiosos a analisarem criticamente o uso de ferramentas de inteligência artificial na aprendizagem de línguas. Cada letra representa uma dimensão importante a considerar antes de adotar uma tecnologia.
-            </p>
-          </div>
-
-          {/* Cada letra do modelo */}
-          <div className="space-y-6 mb-2">
-            {/* L - Linguagem */}
-            <div className="bg-primary/80 rounded-2xl shadow-lg overflow-hidden">
-              <div className="flex items-center p-4 text-white">
-                <div className="text-6xl font-black mr-8 ml-2 flex-shrink-0">L</div>
-                  <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-text-clear">Linguagem</h2>
-                    <p className="text-lg leading-relaxed opacity-95">
-                      A ferramenta favorece práticas reais de linguagem ou apenas respostas mecânicas?
-                    </p>
-                  </div>
-              </div>
-            </div>
-
-            {/* I - Intencionalidade */}
-            <div className="bg-primary/80 rounded-2xl shadow-lg overflow-hidden">
-              <div className="flex items-center p-4 text-text-clear">
-                <div className="text-6xl font-black mr-10 ml-3 flex-shrink-0">I</div>
-                  <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-text-clear">Intencionalidade</h2>
-                    <p className="text-lg leading-relaxed opacity-95">
-                      O usuário tem clareza sobre o objetivo do uso? É guiado ou apenas replicado?
-                    </p>
-                  </div>
-              </div>
-            </div>
-
-              {/* V - Visibilidade dos Processos */}
-              <div className="bg-primary/80 rounded-2xl shadow-lg overflow-hidden">
-                <div className="flex items-center p-4 text-text-clear">
-                  <div className="text-6xl font-black mr-8 flex-shrink-0">V</div>
-                  <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-text-clear">Visibilidade dos Processos</h2>
-                    <p className="text-lg leading-relaxed opacity-95">
-                      A ferramenta permite compreender como a IA funciona ou é uma "caixa-preta"?
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* R - Relevância Educacional */}
-              <div className="bg-primary/80 rounded-2xl shadow-lg overflow-hidden">
-              <div className="flex items-center p-4 text-text-clear">
-                <div className="text-6xl font-black mr-8 flex-shrink-0">R</div>
-                  <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-text-clear">Relevância Educacional</h2>
-                    <p className="text-lg leading-relaxed opacity-95">
-                      A proposta da ferramenta se conecta a objetivos de aprendizagem ou só entretém?
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* E - Ética e Autoria */}
-              <div className="bg-primary/80 rounded-2xl shadow-lg overflow-hidden">
-                <div className="flex items-center p-4 ml-2 text-text-clear">
-                  <div className="text-6xl font-black mr-8 flex-shrink-0">E</div>
-                  <div className="flex-1">
-                    <h2 className="text-2xl font-bold text-text-clear">Ética e Autoria</h2>
-                    <p className="text-lg leading-relaxed opacity-95">
-                      Há transparência no uso, proteção de dados e reconhecimento de autoria?
-                    </p>
-                  </div>
-                </div>
-              </div>
-          </div>
+          {/* Description */}
+          <p className="text-lg md:text-xl text-text-light leading-relaxed">
+            Cinco dimensões para analisar criticamente o uso de ferramentas de IA na aprendizagem de línguas. Cada letra é uma pergunta a se fazer antes de adotar uma tecnologia.
+          </p>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md mt-8 pb-8 pl-4 text-text-light">
-          {/* Como usar o modelo */}
-          <div className="p-8">
-            <h2 className="text-3xl font-bold mb-6 text-center">Como usar o modelo?</h2>
+        {/* Letter Buttons */}
+        <div className="flex justify-center gap-3 md:gap-4 mb-12">
+          {dimensions.map((dim, idx) => (
+            <button
+              key={dim.letter}
+              onClick={() => setActiveDimension(idx)}
+              className={`
+                font-serif text-3xl md:text-4xl lg:text-5xl
+                w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24
+                rounded-2xl md:rounded-3xl
+                flex items-center justify-center
+                transition-all duration-300 ease-out
+                ${
+                  idx === activeDimension
+                    ? 'bg-primary text-text-clear shadow-lg scale-105'
+                    : 'bg-cream border border-line text-text-dark hover:bg-gray-100'
+                }
+              `}
+              title={dim.name}
+            >
+              {dim.letter}
+            </button>
+          ))}
+        </div>
+
+        {/* Info Card */}
+        <div className="max-w-2xl mx-auto">
+          <div className="bg-cream border border-line rounded-3xl p-8 md:p-12 text-center">
+            <h3 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-tight mb-4 md:mb-6 text-text-dark">
+              <span className="text-primary">{current.name[0]}</span>
+              <span>{current.name.slice(1)}</span>
+            </h3>
+            <p className="text-lg md:text-xl text-text-light leading-relaxed">
+              {current.description}
+            </p>
+          </div>
+          
+          {/* Footer Text */}
+          <p className="text-center text-sm text-text-light italic mt-6">
+            Modelo desenvolvido pelo sabIA.
+          </p>
+        </div>
+
+        {/* Usage Section */}
+        <div className="mt-10 max-w-4xl mx-auto">
+          <div className="surface-card p-4 md:p-8">
+            <h2 className="font-serif text-3xl md:text-4xl text-center mb-4">Como usar o modelo?</h2>
             
-            <p className="text-md mb-6">
+            <p className="text-lg text-text-light mb-6">
               Você pode utilizar o L.I.V.R.E. para:
             </p>
 
-            <div className="space-y-2 max-w-3xl mx-auto">
+            <div className="space-y-2 mb-8">
               <div className="flex items-start gap-4">
-                <div className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></div>
-                <p className="text-md">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                <p className="text-lg text-text-light">
                   Guiar reflexões individuais ou em grupo sobre ferramentas digitais
                 </p>
               </div>
               
               <div className="flex items-start gap-4">
-                <div className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></div>
-                <p className="text-md">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                <p className="text-lg text-text-light">
                   Avaliar criticamente o uso de IA na sua rotina de estudo
                 </p>
               </div>
               
               <div className="flex items-start gap-4">
-                <div className="w-2 h-2 bg-black rounded-full mt-2 flex-shrink-0"></div>
-                <p className="text-md">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                <p className="text-lg text-text-light">
                   Incluir em projetos, oficinas ou momentos formativos
                 </p>
               </div>
             </div>
-          </div>
 
-          {/* Navegação adicional */}
-          <div className="mt-0 text-center">
-            <Link 
-              to="/categorias" 
-              className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary/90 transition-colors font-medium"
-            >
-              Conheça as Categorias
-            </Link>
+            {/* Navigation */}
+            <div className="text-center">
+              <Link 
+                to="/categorias" 
+                className="inline-block px-2 md:px-4 py-2 md:py-2 bg-primary text-text-clear rounded-xl font-semibold hover:bg-primary-dark transition-colors"
+              >
+                Conheça as Categorias
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   )
 }

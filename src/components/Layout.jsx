@@ -1,12 +1,15 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import CanvasBackground from './CanvasBackground'
 import FooterNav from './FooterNav'
 
 const Layout = () => {
   return (
-    <div className="min-h-screen bg-background">      
+    <div className="relative isolate min-h-screen overflow-x-hidden bg-background">
+      <CanvasBackground />
+
       {/* Conteúdo principal */}
-      <main className="pb-20">
+      <main className="relative z-10 pb-20">
         <Outlet />
       </main>
       

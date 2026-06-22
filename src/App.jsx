@@ -23,7 +23,7 @@ import SobrePage from './pages/SobrePage'
 import CuradoriaPage from './pages/CuradoriaPage'
 import CategoriasPage from './pages/CategoriasPage'
 import ModeloLivrePage from './pages/ModeloLivrePage'
-import CreditosPage from './pages/CreditosPage'
+import EquipePage from './pages/EquipePage'
 
 // Páginas administrativas
 import CriarFerramenta from './pages/admin/CriarFerramenta'
@@ -65,7 +65,8 @@ function App() {
           <Route path="curadoria" element={<CuradoriaPage />} />
           <Route path="categorias" element={<CategoriasPage />} />
           <Route path="modelo-livre" element={<ModeloLivrePage />} />
-          <Route path="creditos" element={<CreditosPage />} />
+          <Route path="creditos" element={<EquipePage />} />
+          <Route path="equipe" element={<Navigate to="/creditos" replace />} />
         </Route>
 
         {/* Rotas protegidas - Painel Administrativo */}

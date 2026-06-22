@@ -244,8 +244,8 @@ const GerenciarSolicitacoes = () => {
         </div>
         
         {/* Footer Navigation */}
-        <FooterNav />
       </div>
+        <FooterNav />      
     </div>
     </>
   )

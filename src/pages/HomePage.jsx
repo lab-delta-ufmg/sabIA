@@ -13,7 +13,7 @@ const HomePage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-text-light">Carregando ferramentas...</p>
@@ -24,7 +24,7 @@ const HomePage = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="text-center text-red-600">
           <p>Erro ao carregar ferramentas: {error}</p>
         </div>
@@ -35,33 +35,34 @@ const HomePage = () => {
   return (
     <div className="min-h-screen p-6">
       {/* Hero Section */}
-        <section className="text-white py-8">
-          <div className="max-w-3xl mx-auto px-10 bg-white rounded-3xl shadow-xl p-8">
-            <div className="flex items-center justify-center gap-6">
-          {/* Ícone do pássaro (simplificado) */}
-            <div className="flex-shrink-0">
-              <img className="h-40" src="/logobig.png" alt="Logo Sabia" />
+        <section className="py-10 md:py-14">
+          <div className="max-w-5xl mx-auto px-4 text-center">
+            <div className="mb-8 md:mb-10">
+              <img className="h-36 md:h-44 mx-auto" src="/logobig.png" alt="Logo Sabia" />
             </div>
-          <div className="text-center pr-4">
-            <h1 className="text-text-dark text-4xl md:text-5xl font-bold mb-4">sabIA</h1>
-            <p className="text-text-light text-xl font-bold md:text-2xl opacity-90">
-              Saberes sobre Inteligência Artificial para Aprendizagem de Línguas
+
+            <p className="kicker mb-5 tracking-[0.24em]">FACULDADE DE LETRAS · UFMG</p>
+
+            <h1 className="logo-mark text-6xl md:text-8xl leading-none mb-6">
+              sab<span className="logo-ia">IA</span>
+            </h1>
+
+            <p className="heading-italic text-2xl md:text-4xl max-w-3xl mx-auto text-text-light">
+              Saberes sobre Inteligência Artificial para a Aprendizagem de Línguas
             </p>
-             </div>
-           </div>
           </div>
         </section>
 
         {/* Seção de Páginas Informativas */}
       <section className="p-0">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-bold text-text-dark mb-4 text-center">Conheça o sabIA</h2>
+          <h2 className="heading-display text-2xl md:text-3xl mb-4 text-center">Conheça o sabIA</h2>
           
           {/* Grid de 2 colunas sem scrollbar - mais compacto */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div 
               onClick={() => navigate('/sobre')}
-              className="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition-all cursor-pointer border-l-4 border-primary group"
+              className="surface-card surface-card-hover p-3 cursor-pointer group"
             >
               <div className="flex items-center mb-2">
                 <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mr-3 group-hover:bg-primary/20 transition-colors">
@@ -76,7 +77,7 @@ const HomePage = () => {
 
             <div 
               onClick={() => navigate('/curadoria')}
-              className="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition-all cursor-pointer border-l-4 border-primary group"
+              className="surface-card surface-card-hover p-3 cursor-pointer group"
             >
               <div className="flex items-center mb-2">
                 <div className="w-8 h-8 bg-secondary/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-secondary/30 transition-colors">
@@ -91,7 +92,7 @@ const HomePage = () => {
 
             <div 
               onClick={() => navigate('/categorias')}
-              className="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition-all cursor-pointer border-l-4 border-primary group"
+              className="surface-card surface-card-hover p-3 cursor-pointer group"
             >
               <div className="flex items-center mb-2">
                 <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mr-3 group-hover:bg-primary/20 transition-colors">
@@ -106,7 +107,7 @@ const HomePage = () => {
 
             <div 
               onClick={() => navigate('/modelo-livre')}
-              className="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition-all cursor-pointer border-l-4 border-primary group"
+              className="surface-card surface-card-hover p-3 cursor-pointer group"
             >
               <div className="flex items-center mb-2">
                 <div className="w-8 h-8 bg-secondary/20 rounded-lg flex items-center justify-center mr-3 group-hover:bg-secondary/30 transition-colors">
@@ -121,7 +122,7 @@ const HomePage = () => {
 
             <div 
               onClick={() => navigate('/creditos')}
-              className="bg-white rounded-lg shadow-sm p-3 hover:shadow-md transition-all cursor-pointer border-l-4 border-primary group"
+              className="surface-card surface-card-hover p-3 cursor-pointer group"
             >
               <div className="flex items-center mb-2">
                 <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mr-3 group-hover:bg-primary/20 transition-colors">
@@ -141,12 +142,12 @@ const HomePage = () => {
         <div className="mx-auto flex items-center justify-center p-6">
           <Link
             to="/ferramentas"
-            className="inline-flex items-center gap-2 bg-primary text-white text-2xl font-bold p-4 rounded-lg hover:bg-primary/90 transition-colors"
+            className="btn-primary text-2xl font-bold px-10 py-4"
           >
             Explorar Ferramentas
           </Link>
         </div>
-        <div className="mx-auto flex items-center justify-center p-0"> SabIA  v.2.1 beta</div>
+        <div className="mx-auto flex items-center justify-center p-0"> SabIA  v.2.3 beta</div>
 
     </div>
   )

@@ -49,7 +49,7 @@ const PostsPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-text-light">Carregando posts...</p>
@@ -60,7 +60,7 @@ const PostsPage = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="text-center text-red-600">
           <p>Erro ao carregar posts: {error}</p>
         </div>
@@ -69,9 +69,9 @@ const PostsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-12">
+    <div className="min-h-screen bg-transparent pb-12">
       {/* Header */}
-      <div className="bg-primary text-text-clear pt-4 pb-12 relative">
+      <section className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 py-10">
         <div className="grid grid-cols-3 grid-rows-1 max-w-4xl mx-auto px-6">
 
           {/* Botão de voltar com ícone da logo */}
@@ -80,7 +80,7 @@ const PostsPage = () => {
             className="row-span-2 flex items-center"
             title="Voltar"
           >
-            <div className="w-32 h-32 bg-text-clear/100 backdrop-blur-md rounded-full flex items-center justify-center shadow-md hover:bg-text-clear/80 transition">
+            <div className="w-32 h-32 flex items-center justify-center">
               <img
                 src="/logobig.png"
                 alt="Voltar"
@@ -90,19 +90,19 @@ const PostsPage = () => {
           </button>
 
           <div className="col-span-2 items-center mt-6">
-            <h1 className="text-3xl md:text-4xl text-text-clear font-bold mb-2 mt-0">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight mb-0">
               Posts e Artigos
             </h1>
-            <p className="text-lg text-text-clear">
+           <p className="text-xs md:text-sm tracking-widest uppercase font-semibold text-primary mb-6 md:mb-8">
               Explore nosso conteúdo sobre Inteligência Articial e Aprendizagem de Línguas
             </p>
           </div>
 
         </div>
-      </div>
+      </section>
 
       {/* Filtros */}
-      <section className="max-w-6xl mt-6 mx-auto bg-white/80 backdrop-blur-md rounded-lg shadow-sm sticky top-0 z-10">
+      <section className="surface-panel max-w-6xl mx-auto sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex flex-col lg:flex-row gap-4">
             {/* Barra de busca */}
@@ -146,7 +146,7 @@ const PostsPage = () => {
           </div>
 
           {/* Contador de resultados */}
-          <div className="mt-4 text-sm text-gray-600">
+          <div className="mt-4 text-sm text-text-light">
             {filteredPaginas.length} post{filteredPaginas.length !== 1 ? 's' : ''} encontrado{filteredPaginas.length !== 1 ? 's' : ''}
           </div>
         </div>
@@ -156,7 +156,7 @@ const PostsPage = () => {
       <main className="max-w-6xl mx-auto px-4 py-8">
         {filteredPaginas.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">
+            <p className="text-text-light text-lg">
               {paginas.length === 0 
                 ? 'Nenhum post disponível no momento.' 
                 : 'Nenhum post encontrado com os filtros aplicados.'
@@ -166,11 +166,11 @@ const PostsPage = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPaginas.map((pagina) => (
-              <div key={pagina.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden">
+              <div key={pagina.id} className="surface-card surface-card-hover overflow-hidden">
                 {/* Header do card */}
                 <div className="p-4 border-b border-gray-100">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-lg font-bold text-gray-800 flex-1 mr-3 line-clamp-2">
+                    <h3 className="text-lg font-bold text-text-dark flex-1 mr-3 line-clamp-2">
                       {pagina.titulo}
                     </h3>
                     {pagina.ferramentas && (
@@ -217,7 +217,7 @@ const PostsPage = () => {
                     <div>
                       <h4 className="text-sm font-semibold text-text-dark mb-1">Ferramenta Relacionada</h4>
                       <div className="flex flex-wrap gap-1">
-                        <span className="px-2 py-1 text-xs bg-secondary/20 text-primary rounded-full">
+                        <span className="chip-tag">
                           {pagina.ferramentas.nome}
                         </span>
                       </div>
@@ -229,7 +229,7 @@ const PostsPage = () => {
                 <div className="px-4 pb-4">
                   <Link
                     to={`/post/${generateSlug(pagina.titulo)}-${pagina.id}`}
-                    className="block w-full text-center bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
+                    className="btn-primary w-full text-sm"
                   >
                     Ler Post
                   </Link>

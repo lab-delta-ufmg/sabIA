@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ChevronLeft, Archive, Info } from 'lucide-react'
 
 const CategoriasPage = () => {
   const navigate = useNavigate()
+  const [selectedIndex, setSelectedIndex] = useState(0)
 
   const categorias = [
     {
@@ -63,18 +63,21 @@ const CategoriasPage = () => {
     }
   ]
 
+  const selectedCategoria = categorias[selectedIndex]
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-transparent">
       {/* Header da página */}
-      <div className="bg-primary text-text-clear pt-4 pb-12 relative">
-      <div className="grid grid-cols-3 grid-rows-1 max-w-4xl mx-auto px-6">
+      <section className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 py-10">
+        <div className="grid grid-cols-3 grid-rows-1 max-w-4xl mx-auto px-6">
+
           {/* Botão de voltar com ícone da logo */}
           <button
             onClick={() => navigate('/')}
             className="row-span-2 flex items-center"
             title="Voltar"
           >
-            <div className="w-32 h-32 bg-text-clear/100 backdrop-blur-md rounded-full flex items-center justify-center shadow-md hover:bg-text-clear/80 transition">
+            <div className="w-32 h-32 flex items-center justify-center">
               <img
                 src="/logobig.png"
                 alt="Voltar"
@@ -82,93 +85,137 @@ const CategoriasPage = () => {
               />
             </div>
           </button>
-
           <div className="col-span-2 items-center mt-6">
-            <h1 className="text-3xl md:text-4xl text-text-clear font-bold mb-2 mt-0">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight mb-0">
               Conheça as Categorias
             </h1>
-            <p className="text-lg text-text-clear">
+            <p className="text-xs md:text-sm tracking-widest uppercase font-semibold text-primary mb-6 md:mb-8">
               Organização linguístico-pedagógica das ferramentas
             </p>
           </div>
 
         </div>
-      </div>
+      </section>
 
       {/* Conteúdo principal */}
-      <div className="max-w-6xl mx-auto px-6 py-6">
+      <div className="max-w-6xl mx-auto px-6">
         {/* Introdução */}
-        <div className="bg-white text-text-light rounded-lg shadow-md p-8 mb-8">
-          <div className="text-center mb-2">
-            <p className="leading-relaxed mb-6 text-justify">
+        <div className="mb-8">
+          <div className="max-w-3xl">
+            <p className="leading-relaxed mb-6 text-justify text-lg text-ink">
               Cada ferramenta no sabIÁ é classificada em uma ou mais categorias linguístico-pedagógicas, 
               que ajudam você a navegar e encontrar recursos alinhados aos seus objetivos.
             </p>
-            
-            <div className="bg-primary/10 rounded-lg p-6 border-l-4 border-primary">
-              <p className="font-bold">
-                As categorias não são apenas técnicas, mas organizadas com foco em práticas linguísticas e educacionais.
+
+            <div className="border-l-2 border-[--terra] pl-4">
+              <p className="font-serif italic text-xl text-[--terra]">
+                As categorias são organizadas com foco em práticas linguísticas e educacionais.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Grid de categorias */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {categorias.map((categoria, index) => (
-            <div 
-              key={index}
-              className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow border-l-4 border-transparent hover:border-primary"
-            >
-              <div className="flex items-start mb-4">
-                <span className="text-3xl mr-3 flex-shrink-0">{categoria.emoji}</span>
-                <h3 className="text-xl font-bold text-text-dark">{categoria.nome}</h3>
-              </div>
-              <p className="text-text-light leading-relaxed text-sm text-justify">
-                {categoria.descricao}
-              </p>
-            </div>
-          ))}
-        </div>
+        {/* Lista interativa de categorias */}
+        <div className="mb-8">
+          {/* Mobile/Tablet: accordion */}
+          <div className="max-w-4xl space-y-3 lg:hidden">
+            {categorias.map((categoria, index) => (
+              <details
+                key={index}
+                className="group bg-[#fbf6ec]/70 border border-[--paper] rounded-2xl overflow-hidden open:shadow-lg open:shadow-[#b66a3c]/20"
+                open={index === 0}
+              >
+                <summary className="list-none cursor-pointer px-5 py-4 flex items-center gap-3 group-open:bg-[--terra] transition-colors">
+                  <span className="text-xl leading-none">{categoria.emoji}</span>
+                  <h3 className="text-lg font-semibold group-open:text-[--cream]">{categoria.nome}</h3>
+                  <span className="ml-auto text-xs font-semibold tracking-wider opacity-70 group-open:text-[--cream]">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </summary>
 
-        {/* Nota sobre múltiplas categorias */}
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <div className="flex items-start">
-            <div className="flex-shrink-0">
-              <Info className="w-6 h-6 text-secondary mt-1" />
+                <div className="p-6 border-t border-[--paper] bg-[#f7f2e8]">
+                  <p className="text-xs font-semibold tracking-[0.2em] text-[--terra]/80 mb-3">
+                    {String(index + 1).padStart(2, '0')} / {String(categorias.length).padStart(2, '0')}
+                  </p>
+                  <h4 className="font-serif text-3xl text-[--ink] mb-3">{categoria.nome}</h4>
+                  <p className="text-[--ink2] leading-relaxed text-base text-justify">
+                    {categoria.descricao}
+                  </p>
+                </div>
+              </details>
+            ))}
+          </div>
+
+          {/* Desktop: menu + painel fixo */}
+          <div className="hidden lg:grid lg:grid-cols-[0.85fr_1.15fr] gap-6 items-start">
+            <div className="flex flex-col gap-2">
+              {categorias.map((categoria, index) => {
+                const isActive = selectedIndex === index
+
+                return (
+                  <button
+                    key={categoria.nome}
+                    onClick={() => setSelectedIndex(index)}
+                    className={`w-full text-left px-4 py-3 rounded-xl border transition-all flex items-center gap-3 ${
+                      isActive
+                        ? 'bg-[--terra] text-[--cream] border-[--terra] shadow-lg shadow-[#b66a3c]/25'
+                        : 'bg-[#fbf6ec]/70 text-[--ink] border-[--paper] hover:bg-[#f3e8d8]'
+                    }`}
+                    aria-pressed={isActive}
+                  >
+                    <span className="text-lg leading-none">{categoria.emoji}</span>
+                    <span className="font-semibold">{categoria.nome}</span>
+                    <span className="ml-auto text-xs tracking-wider opacity-70">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                  </button>
+                )
+              })}
             </div>
-            <div className="ml-3">
-              <h3 className="text-lg font-semibold text-text-dark mb-2">Categorias Múltiplas</h3>
-              <p className="text-text-light">
-                Uma ferramenta pode aparecer em mais de uma categoria, pois seus usos são múltiplos e flexíveis.
+
+            <div className="sticky top-24 bg-[#f7f2e8] border border-[--paper] rounded-3xl p-8 shadow-[0_22px_60px_rgba(42,32,20,0.08)] min-h-[320px] flex flex-col justify-center">
+              <p className="text-xs font-semibold tracking-[0.2em] text-[--terra]/80 mb-4">
+                {String(selectedIndex + 1).padStart(2, '0')} / {String(categorias.length).padStart(2, '0')}
+              </p>
+              <h4 className="font-serif text-4xl text-[--ink] mb-4 leading-tight">
+                {selectedCategoria.emoji} {selectedCategoria.nome}
+              </h4>
+              <p className="text-[--ink2] leading-relaxed text-lg">
+                {selectedCategoria.descricao}
               </p>
             </div>
           </div>
+        </div>
+
+        <div className="surface-card p-4">
+          <p className="text-[--ink]">
+            Uma ferramenta pode aparecer em mais de uma categoria, pois seus usos são múltiplos e flexíveis.
+          </p>
+        </div>
 
           {/* Navegação para outras páginas */}
-          <div className="mt-12 pt-6 border-t border-text-dark">
-            <h3 className="text-lg font-semibold text-text-dark mb-4">Explore mais</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="mt-4 pt-8 border-t border-gray-300">
+          <h3 className="text-lg font-semibold text-[--ink] mb-6">Explore mais</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <button
                 onClick={() => navigate('/sobre')}
-                className="text-left p-4 bg-background rounded-lg hover:bg-gray-100 transition-colors border-l-4 border-primary"
+                className="bg-[--ink] text-left p-4 hover:bg-[--ink2] transition-colors rounded-lg"
               >
-                <h4 className="font-semibold text-text-dark mb-1">Sobre o sabIA</h4>
-                <p className="text-sm text-text-light">Conheça nossa plataforma e missão</p>
+                <h4 className="font-semibold text-[--ochre] mb-1">Sobre o sabIA</h4>
+                <p className="text-sm text-[--cream]">Conheça nossa plataforma e missão</p>
               </button>
               
               <button
                 onClick={() => navigate('/curadoria')}
-                className="text-left p-4 bg-background rounded-lg hover:bg-gray-100 transition-colors border-l-4 border-primary"
+                className="bg-[--ink] text-left p-4 hover:bg-[--ink2] transition-colors rounded-lg"
               >
-                <h4 className="font-semibold text-text-dark mb-1">Como funciona a curadoria</h4>
-                <p className="text-sm text-text-light">Entenda nosso processo de seleção</p>
+                <h4 className="font-semibold text-[--ochre] mb-1">Como funciona a curadoria</h4>
+                <p className="text-sm text-[--cream]">Entenda nosso processo de seleção</p>
               </button>
             </div>
           </div>
         </div>
       </div>
-    </div>
   )
 }
 

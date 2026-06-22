@@ -80,25 +80,25 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/10 via-white to-secondary/10 flex items-center justify-center p-4">
+    <div className="min-h-screen modal-overlay flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-primary mb-2">
+          <h1 className="logo-mark text-4xl mb-2 text-[var(--cream)]">
             Sabiá
           </h1>
-          <p className="text-gray-600">
+          <p className="text-[rgba(251,246,236,0.85)]">
             {isLoginMode ? 'Faça login em sua conta' : 'Crie sua conta'}
           </p>
         </div>
 
         {/* Formulário */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <div className="modal-card">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Campo Nome (apenas no cadastro) */}
             {!isLoginMode && (
               <div>
-                <label htmlFor="nome" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="nome" className="block text-sm font-medium text-[var(--ink)] mb-2">
                   Nome completo *
                 </label>
                 <input
@@ -107,7 +107,7 @@ const LoginPage = () => {
                   name="nome"
                   value={formData.nome}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  className="modal-input"
                   placeholder="Seu nome completo"
                   required={!isLoginMode}
                 />
@@ -117,7 +117,7 @@ const LoginPage = () => {
             {/* Campo Instituição (apenas no cadastro) */}
             {!isLoginMode && (
               <div>
-                <label htmlFor="instituicao" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="instituicao" className="block text-sm font-medium text-[var(--ink)] mb-2">
                   Instituição (opcional)
                 </label>
                 <input
@@ -126,7 +126,7 @@ const LoginPage = () => {
                   name="instituicao"
                   value={formData.instituicao}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                  className="modal-input"
                   placeholder="Sua instituição"
                 />
               </div>
@@ -134,7 +134,7 @@ const LoginPage = () => {
 
             {/* Campo Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-[var(--ink)] mb-2">
                 Email *
               </label>
               <input
@@ -143,7 +143,7 @@ const LoginPage = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                className="modal-input"
                 placeholder="seu@email.com"
                 required
               />
@@ -151,7 +151,7 @@ const LoginPage = () => {
 
             {/* Campo Senha */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-medium text-[var(--ink)] mb-2">
                 Senha *
               </label>
               <input
@@ -160,13 +160,13 @@ const LoginPage = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+                className="modal-input"
                 placeholder="••••••••"
                 required
                 minLength={6}
               />
               {!isLoginMode && (
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-[var(--ink2)] mt-1">
                   Mínimo de 6 caracteres
                 </p>
               )}
@@ -189,7 +189,7 @@ const LoginPage = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-primary text-white py-3 px-4 rounded-xl font-medium hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">
@@ -204,12 +204,12 @@ const LoginPage = () => {
 
           {/* Toggle entre login e cadastro */}
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-[var(--ink2)]">
               {isLoginMode ? 'Não tem uma conta?' : 'Já tem uma conta?'}
               <button
                 type="button"
                 onClick={toggleMode}
-                className="ml-1 text-primary hover:text-primary/80 font-medium transition-colors"
+                className="ml-1 text-[var(--terra)] hover:text-[var(--terrad)] font-medium transition-colors"
               >
                 {isLoginMode ? 'Criar conta' : 'Fazer login'}
               </button>
@@ -218,8 +218,8 @@ const LoginPage = () => {
 
           {/* Informação sobre aprovação */}
           {!isLoginMode && (
-            <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-              <p className="text-xs text-blue-700">
+            <div className="mt-4 p-3 surface-accent rounded-lg">
+              <p className="text-xs text-[var(--ink2)]">
                 ℹ️ Novos usuários precisam de aprovação da equipe para acessar o painel de ferramentas.
               </p>
             </div>
@@ -230,7 +230,7 @@ const LoginPage = () => {
         <div className="text-center mt-6">
           <a
             href="/"
-            className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+            className="text-sm text-[rgba(251,246,236,0.85)] hover:text-[var(--cream)] transition-colors"
           >
             ← Voltar ao site
           </a>

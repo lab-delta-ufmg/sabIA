@@ -1,125 +1,77 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAuthStore } from '../stores'
-import { 
-  Home, 
-  BookOpen, 
-  Grid3X3, 
-  Settings, 
-  LayoutDashboard, 
-  LogOut 
-} from 'lucide-react'
+import { Home, BookOpen, Settings, Users, LayoutDashboard, LogOut } from 'lucide-react'
 
 const FooterNav = () => {
   const { isAuthenticated, hasToolAccess, user, teamData, logout } = useAuthStore()
 
-  // Itens base da navegação (lado esquerdo)
   const baseItems = [
-    {
-      name: 'Ninho',
-      path: '/',
-      icon: Home,
-    },
-    {
-      name: 'Ferramentas',
-      path: '/ferramentas',
-      icon: Settings,
-    },
-    {
-      name: 'Posts',
-      path: '/posts',
-      icon: BookOpen,
-    },
+    { name: 'Ninho', path: '/', icon: Home },
+    { name: 'Ferramentas', path: '/ferramentas', icon: Settings },
+    { name: 'Posts', path: '/posts', icon: BookOpen },
   ]
 
-  // Obter nome do usuário
   const userName = teamData?.nome || user?.email?.split('@')[0] || 'Usuário'
 
+  const navItemClass = ({ isActive }) =>
+    `flex flex-col items-center justify-center rounded-2xl px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] transition-all ${
+      isActive
+        ? 'text-[var(--terra)] shadow-sm'
+        : 'text-[var(--cream)] hover:text-[var(--ochre)]'
+    }`
+
   return (
-    <nav className="fixed bottom-4 left-12 right-12 bg-white/70 backdrop-blur rounded-xl border-primary/20 px-4 py-2 z-50 shadow-lg">
-      <div className="flex items-center justify-between w-full">
-        {/* Espaço vazio à esquerda para balanceamento */}
-        <div className="flex-1"></div>
-        
-        {/* Itens principais (centralizados) */}
-        <div className="flex items-center justify-center space-x-4">
+    <nav className="fixed bottom-0 z-50 mx-auto w-full border border-[var(--line)] bg-[#2a2014]/70 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.2)] backdrop-blur-md">
+      <div className="flex w-full items-center justify-between gap-4">
+        <div className="flex-1" />
+
+        <div className="flex items-center justify-center gap-2 md:gap-3">
           {baseItems.map((item) => {
             const IconComponent = item.icon
-            
+
             return (
-              <NavLink
-                key={item.name}
-                to={item.path}
-                className={({ isActive }) =>
-                  `flex flex-col items-center justify-center px-2 py-1 ${
-                    isActive
-                      ? 'text-primary'
-                      : 'text-gray-500 hover:text-gray-700'
-                  }`
-                }
-              >
-                <IconComponent className="w-6 h-6" />
-                <span className="text-xs mt-1">{item.name}</span>
+              <NavLink key={item.name} to={item.path} className={navItemClass}>
+                <IconComponent className="h-5 w-5" />
+                <span className="mt-1">{item.name}</span>
               </NavLink>
             )
           })}
         </div>
 
-        {/* Área de autenticação/usuário (lado direito) */}
-        <div className="flex items-center space-x-3 flex-1 justify-end">
+        <div className="flex flex-1 items-center justify-end gap-2 md:gap-3">
           {!isAuthenticated ? (
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                `flex flex-col items-center justify-center px-3 py-1 ${
-                  isActive
-                    ? 'text-primary'
-                    : 'text-gray-500 hover:text-gray-700'
-                }`
-              }
-            >
-              <LayoutDashboard className="w-6 h-6" />
-              <span className="text-xs mt-1">Login</span>
+            <NavLink to="/login" className={navItemClass}>
+              <LayoutDashboard className="h-5 w-5" />
+              <span className="mt-1">Login</span>
             </NavLink>
           ) : (
             <>
-              {/* Nome do usuário */}
-              <div className="flex flex-col items-center justify-center px-2 py-1">
-                <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-medium text-primary">
+              <div className="flex flex-col items-center justify-center rounded-2xl">
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[--ochre]">
+                  <span className="text-[11px] font-semibold text-[var(--cream)]">
                     {userName.charAt(0).toUpperCase()}
                   </span>
                 </div>
-                <span className="text-xs mt-1 text-gray-600 max-w-16 truncate">
+                <span className="mt-1 max-w-16 truncate text-[11px] text-[var(--cream)]">
                   {userName}
                 </span>
               </div>
 
-              {/* Painel Admin (se tiver acesso) */}
               {hasToolAccess() && (
-                <NavLink
-                  to="/painel"
-                  className={({ isActive }) =>
-                    `flex flex-col items-center justify-center px-3 py-1 ${
-                      isActive
-                        ? 'text-primary'
-                        : 'text-gray-500 hover:text-gray-700'
-                    }`
-                  }
-                >
-                  <LayoutDashboard className="w-6 h-6" />
-                  <span className="text-xs mt-1">Painel</span>
+                <NavLink to="/painel" className={navItemClass}>
+                  <LayoutDashboard className="h-5 w-5" />
+                  <span className="mt-1">Painel</span>
                 </NavLink>
               )}
 
-              {/* Botão Sair */}
               <button
                 onClick={logout}
-                className="flex flex-col items-center justify-center px-3 py-1 text-gray-500 hover:text-red-600 transition-colors"
+                className="flex flex-col items-center justify-center rounded-2xl text-[11px] font-semibold uppercase tracking-[0.18em] text-[var(--ink2)] transition-all hover:bg-[rgba(42,32,20,0.04)] hover:text-[var(--cream)]"
                 title="Sair"
               >
-                <LogOut className="w-6 h-6" />
-                <span className="text-xs mt-1">Sair</span>
+                <LogOut className="h-5 w-5" />
+                <span className="mt-1">Sair</span>
               </button>
             </>
           )}

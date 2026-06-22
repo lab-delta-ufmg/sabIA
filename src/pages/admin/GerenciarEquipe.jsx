@@ -296,10 +296,8 @@ const GerenciarEquipe = () => {
         </div>
       )}
         </div>
-        
-        {/* Footer Navigation */}
-        <FooterNav />
       </div>
+     <FooterNav />
     </div>
     </>
   )

@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Design tokens ─────────────────────────────────────────── */
+:root {
+  --ink:    #2A2014;
+  --ink2:   #6A5740;
+  --terra:  #C75B2C;
+  --terrad: #A4451F;
+  --ochre:  #C2913B;
+  --olive:  #6E6A3C;
+  --cream:  #FBF6EC;
+  --paper:  #EFE3CF;
+  --paper2: #E8D9C0;
+  --line:   rgba(42, 32, 20, 0.14);
+  --maxw:   1120px;
+  --pad:    clamp(22px, 6vw, 120px);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 /* Estilos customizados */
 @layer utilities {
   .line-clamp-1 {
@@ -29,9 +49,262 @@
   }
 }
 
+/* ─── Base typography ─────────────────────────────────────────── */
+@layer base {
+  /* Display headings use Newsreader (the new --font-serif) */
+  h1, h2, h3 {
+    font-family: 'Newsreader', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  h4, h5, h6 {
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* Tighten body-level paragraph copy */
+  p {
+    line-height: 1.65;
+    color: var(--ink2);
+  }
+
+  strong {
+    color: var(--ink);
+  }
+}
+
+/* ─── Reusable type components ────────────────────────────────── */
+@layer components {
+  /* Kicker label — e.g. "ORGANIZAÇÃO LINGUÍSTICO-PEDAGÓGICA" */
+  .kicker {
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--terrad);
+  }
+
+  /* Large serif display heading */
+  .heading-display {
+    font-family: 'Newsreader', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--ink);
+  }
+
+  /* Italic subtitle / tagline */
+  .heading-italic {
+    font-family: 'Newsreader', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink2);
+  }
+
+  /* Logo mark: sab + IA */
+  .logo-mark {
+    font-family: 'Newsreader', Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .logo-mark .logo-ia {
+    color: var(--terra);
+  }
+
+  /* Shared card system */
+  .surface-card {
+    background: rgba(255, 252, 248, 0.4);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 22px 60px rgba(42, 32, 20, 0.08);
+    backdrop-filter: blur(5px);    
+  }
+
+  .surface-card-hover {
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+
+  .surface-card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 30px 70px rgba(42, 32, 20, 0.12);
+    border-color: rgba(199, 91, 44, 0.35);
+  }
+
+  .surface-panel {
+    background: #ffffff10;
+    border: 1px solid var(--cream);
+    box-shadow: 0 18px 50px rgba(42, 32, 20, 0.08);
+    backdrop-filter: blur(5px);
+  }
+
+  .surface-accent {
+    background: rgba(199, 91, 44, 0.08);
+    border: 1px solid rgba(199, 91, 44, 0.24);
+    border-radius: 16px;
+  }
+
+  .chip-tag {
+    border-radius: 999px;
+    border: 1px solid rgba(194, 145, 59, 0.4);
+    color: var(--ochre);
+    background: rgba(194, 145, 59, 0.08);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 4px 10px;
+  }
+
+  .chip-filter {
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    color: var(--ink2);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: none;
+    border-radius: 999px;
+    background: var(--terra);
+    color: var(--cream);
+    font-weight: 600;
+    padding: 12px 24px;
+    box-shadow: 0 12px 34px rgba(199, 91, 44, 0.28);
+    transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .btn-primary:hover {
+    background: var(--terrad);
+    transform: translateY(-2px);
+    box-shadow: 0 18px 42px rgba(164, 69, 31, 0.3);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    color: var(--ink);
+    font-weight: 600;
+    padding: 11px 22px;
+    transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .btn-secondary:hover {
+    transform: translateY(-1px);
+    background: rgba(251, 246, 236, 0.78);
+    border-color: rgba(199, 91, 44, 0.35);
+  }
+
+  .btn-ghost-light {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(251, 246, 236, 0.55);
+    background: transparent;
+    color: var(--cream);
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: background 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .btn-ghost-light:hover {
+    transform: translateY(-1px);
+    border-color: rgba(251, 246, 236, 0.85);
+    background: rgba(251, 246, 236, 0.08);
+  }
+
+  .modal-overlay {
+    background: rgba(42, 32, 20, 0.55);
+    backdrop-filter: blur(8px);
+  }
+
+  .modal-card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: clamp(28px, 5vw, 42px);
+    box-shadow: 0 40px 100px rgba(42, 32, 20, 0.35);
+  }
+
+  .modal-input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--cream);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .modal-input:focus {
+    border-color: rgba(199, 91, 44, 0.45);
+    box-shadow: 0 0 0 3px rgba(199, 91, 44, 0.15);
+  }
+
+  .popup-menu {
+    position: absolute;
+    z-index: 20;
+    width: 100%;
+    margin-top: 4px;
+    overflow-y: auto;
+    max-height: 10rem;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--cream);
+    box-shadow: 0 24px 60px rgba(42, 32, 20, 0.2);
+    backdrop-filter: blur(6px);
+  }
+
+  .popup-menu-item {
+    padding: 8px 12px;
+    font-size: 0.875rem;
+    color: var(--ink2);
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .popup-menu-item:hover {
+    background: rgba(42, 32, 20, 0.05);
+    color: var(--ink);
+  }
+}
+
 /* Estilos globais */
 body {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: 'Hanken Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: var(--paper);
+  color: var(--ink);
+}
+
+::selection {
+  background: rgba(199, 91, 44, 0.2);
+  color: var(--ink);
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 /* Melhorar aparência de scrollbars */
@@ -54,7 +327,7 @@ body {
 
 /* Estilos para foco acessível */
 .focus-visible {
-  outline: 2px solid #d2691e;
+  outline: 2px solid var(--terra);
   outline-offset: 2px;
 }
 
@@ -67,7 +340,7 @@ button, a, input, select, textarea {
 
 /* Estilos para visualização do markdown renderizado */
 .markdown-content {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: 'Hanken Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   line-height: 1.7;
 }
 
@@ -92,8 +365,8 @@ button, a, input, select, textarea {
 }
 
 .markdown-content th {
-  background-color: #d2691e;
-  color: white;
+  background-color: var(--terra);
+  color: var(--cream);
   padding: 12px 16px;
   text-align: center;
   font-weight: 600;
@@ -117,8 +390,8 @@ button, a, input, select, textarea {
 
 /* Códigos - centralizados e destacados */
 .markdown-content code {
-  background-color: #f3f4f6;
-  color: #d2691e;
+  background-color: rgba(42,32,20,0.06);
+  color: var(--terra);
   padding: 4px 8px;
   border-radius: 6px;
   font-size: 0.875rem;
@@ -146,12 +419,12 @@ button, a, input, select, textarea {
 
 /* Quotes - centralizadas e destacadas */
 .markdown-content blockquote {
-  border-left: 4px solid #d2691e;
-  background-color: rgba(210, 105, 30, 0.05);
+  border-left: 4px solid var(--terra);
+  background-color: rgba(199,91,44,0.05);
   padding: 1.5rem;
   margin: 1.5rem auto;
   font-style: italic;
-  color: #4b5563;
+  color: var(--ink2);
   border-radius: 8px;
   max-width: 90%;
   text-align: center;
@@ -160,30 +433,40 @@ button, a, input, select, textarea {
 
 /* Links com cor principal */
 .markdown-content a {
-  color: #d2691e;
+  color: var(--terra);
   text-decoration: underline;
-  text-decoration-color: rgba(210, 105, 30, 0.3);
+  text-decoration-color: rgba(199,91,44,0.3);
   transition: all 0.2s ease;
   font-weight: 500;
 }
 
 .markdown-content a:hover {
-  color: #b8591a;
-  text-decoration-color: #b8591a;
+  color: var(--terrad);
+  text-decoration-color: var(--terrad);
 }
 
 /* Títulos */
 .markdown-content h1,
 .markdown-content h2,
-.markdown-content h3,
+.markdown-content h3 {
+  font-family: 'Newsreader', Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--ink);
+}
+
 .markdown-content h4,
 .markdown-content h5,
 .markdown-content h6 {
+  font-family: 'Hanken Grotesk', system-ui, sans-serif;
   font-weight: 700;
   line-height: 1.3;
   margin-top: 2rem;
   margin-bottom: 1rem;
-  color: #1f2937;
+  color: var(--ink);
 }
 
 .markdown-content h1 {
@@ -201,7 +484,7 @@ button, a, input, select, textarea {
 /* Parágrafos e listas */
 .markdown-content p {
   margin-bottom: 1.25rem;
-  color: #374151;
+  color: var(--ink2);
 }
 
 /* Listas numeradas */
@@ -217,7 +500,7 @@ button, a, input, select, textarea {
   position: relative;
   margin-bottom: 0.75rem;
   padding-left: 1rem;
-  color: #374151;
+  color: var(--ink2);
 }
 
 .markdown-content ol li::before {
@@ -225,8 +508,8 @@ button, a, input, select, textarea {
   position: absolute;
   left: -1.5rem;
   font-weight: 600;
-  color: #d2691e;
-  background-color: rgba(210, 105, 30, 0.1);
+  color: var(--terra);
+  background-color: rgba(199,91,44,0.1);
   border-radius: 50%;
   width: 1.5rem;
   height: 1.5rem;
@@ -247,7 +530,7 @@ button, a, input, select, textarea {
   position: relative;
   margin-bottom: 0.75rem;
   padding-left: 1rem;
-  color: #374151;
+  color: var(--ink2);
 }
 
 .markdown-content ul li::before {
@@ -255,7 +538,7 @@ button, a, input, select, textarea {
   position: absolute;
   left: -1rem;
   font-weight: bold;
-  color: #d2691e;
+  color: var(--terra);
   font-size: 1.2rem;
 }
 
@@ -275,7 +558,7 @@ button, a, input, select, textarea {
   margin-right: 0.5rem;
   width: 1.2rem;
   height: 1.2rem;
-  accent-color: #d2691e;
+  accent-color: var(--terra);
   cursor: pointer;
 }
 
@@ -296,17 +579,17 @@ button, a, input, select, textarea {
 /* Formatação de texto */
 .markdown-content strong {
   font-weight: 700;
-  color: #1f2937;
+  color: var(--ink);
 }
 
 .markdown-content em {
   font-style: italic;
-  color: #4b5563;
+  color: var(--ink2);
 }
 
 .markdown-content u {
   text-decoration: underline;
-  text-decoration-color: #d2691e;
+  text-decoration-color: var(--terra);
   text-decoration-thickness: 2px;
   text-underline-offset: 2px;
 }
@@ -316,22 +599,22 @@ button, a, input, select, textarea {
 .markdown-content em strong {
   font-weight: 700;
   font-style: italic;
-  color: #1f2937;
+  color: var(--ink);
 }
 
 .markdown-content strong u,
 .markdown-content u strong {
   font-weight: 700;
   text-decoration: underline;
-  text-decoration-color: #d2691e;
-  color: #1f2937;
+  text-decoration-color: var(--terra);
+  color: var(--ink);
 }
 
 .markdown-content em u,
 .markdown-content u em {
   font-style: italic;
   text-decoration: underline;
-  text-decoration-color: #d2691e;
-  color: #4b5563;
+  text-decoration-color: var(--terra);
+  color: var(--ink2);
 }
 

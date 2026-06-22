@@ -36,7 +36,7 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-[gray-100]">
       <AdminHeader solicitacoesPendentes={solicitacoesPendentes} />
       
       {/* Renderizar sempre o Outlet - as sub-páginas */}

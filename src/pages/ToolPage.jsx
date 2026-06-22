@@ -89,7 +89,7 @@ const ToolPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-text-light">Carregando ferramentas...</p>
@@ -100,7 +100,7 @@ const ToolPage = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="text-center text-red-600">
           <p>Erro ao carregar ferramentas: {error}</p>
         </div>
@@ -109,9 +109,9 @@ const ToolPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-12">
+    <div className="min-h-screen bg-transparent">
       {/* Header */}
-      <div className="bg-primary text-text-clear pt-4 pb-12 relative">
+      <section className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 py-10">
         <div className="grid grid-cols-3 grid-rows-1 max-w-4xl mx-auto px-6">
 
           {/* Botão de voltar com ícone da logo */}
@@ -120,7 +120,7 @@ const ToolPage = () => {
             className="row-span-2 flex items-center"
             title="Voltar"
           >
-            <div className="w-32 h-32 bg-text-clear/100 backdrop-blur-md rounded-full flex items-center justify-center shadow-md hover:bg-text-clear/80 transition">
+            <div className="w-32 h-32 flex items-center justify-center">
               <img
                 src="/logobig.png"
                 alt="Voltar"
@@ -130,19 +130,19 @@ const ToolPage = () => {
           </button>
 
           <div className="col-span-2 items-center mt-6">
-            <h1 className="text-3xl md:text-4xl text-text-clear font-bold mb-2 mt-0">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight mb-0">
               Ferramentas de IA
             </h1>
-            <p className="text-lg text-text-clear">
+           <p className="text-xs md:text-sm tracking-widest uppercase font-semibold text-primary mb-6 md:mb-8">
               Explore nossa curadoria de ferramentas de inteligência artificial para ensino de línguas
             </p>
           </div>
 
         </div>
-      </div>
+      </section>
 
       {/* Filtros */}
-      <section className="max-w-6xl mx-auto mt-6 bg-white/80 backdrop-blur-md rounded-lg shadow-sm">
+      <section className="surface-panel max-w-full mx-auto">
         <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex flex-col lg:flex-row lg:items-start gap-4">
             {/* Barra de busca  + Contador de ferramentas*/}
@@ -178,7 +178,7 @@ const ToolPage = () => {
                 className={`px-3 py-1 rounded-full border text-xs ${
                   selectedTags.length === 0
                     ? 'bg-primary text-white border-primary'
-                    : 'bg-white text-text-dark border-gray-300'
+                    : 'chip-filter'
                 }`}
               >
                 Todas
@@ -199,7 +199,7 @@ const ToolPage = () => {
                     className={`px-3 py-1 rounded-full border text-sm ${
                       isSelected
                         ? 'bg-primary text-white border-primary'
-                        : 'bg-white text-text-dark border-gray-300'
+                        : 'chip-filter'
                     }`}
                   >
                     {tag}
@@ -225,7 +225,7 @@ const ToolPage = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredFerramentas.map((ferramenta) => (
-              <div key={ferramenta.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden flex flex-col h-full">
+              <div key={ferramenta.id} className="surface-card surface-card-hover overflow-hidden flex flex-col h-full">
                 {/* Header do card */}
                 <div className="p-4 border-b border-gray-100">
                   <div className="flex items-center justify-between mb-[-6px]">
@@ -281,10 +281,7 @@ const ToolPage = () => {
                       <div className="flex flex-wrap gap-1">
                         {ferramenta.tags && ferramenta.tags.length > 0 ? (
                           ferramenta.tags.slice(0, 3).map((tag, index) => (
-                            <span 
-                              key={index}
-                              className="px-2 py-1 text-xs bg-secondary/20 text-text-light font-bold rounded-full"
-                            >
+                            <span key={index} className="chip-tag">
                               {tag}
                             </span>
                           ))
@@ -318,7 +315,7 @@ const ToolPage = () => {
                       href={ferramenta.link_site}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block w-full text-center bg-primary text-text-clear py-2 px-4 rounded-lg hover:bg-primary/90 transition-colors text-sm font-medium"
+                      className="btn-primary w-full text-sm"
                     >
                       Acessar Ferramenta
                     </a>

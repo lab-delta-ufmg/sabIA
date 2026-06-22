@@ -182,8 +182,8 @@ const CriarFerramenta = () => {
         </div>
         
         {/* Footer Navigation */}
-        <FooterNav />
       </div>
+   <FooterNav />
     </div>
     </>
   )
