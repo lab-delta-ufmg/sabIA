@@ -71,17 +71,17 @@ const EquipePage = () => {
           <div className="surface-card p-8 md:p-10">
             <div className="text-center mb-6">
               <p className="kicker mb-4">Uso e compartilhamento</p>
-              <h2 className="heading-display text-3xl md:text-4xl mb-2">Licenca de Uso</h2>
+              <h2 className="heading-display text-3xl md:text-4xl mb-2">Licença de Uso</h2>
             </div>
             <p className="text-text-light leading-relaxed mb-4 text-justify">
               O conteudo autoral deste site, incluindo descricoes, categorizacao, organizacao de
-              informacoes e textos explicativos, e disponibilizado sob a licenca
+              informacoes e textos explicativos, e disponibilizado sob a licença
               <strong> Creative Commons Atribuicao-NaoComercial-CompartilhaIgual 4.0 Internacional (CC BY-NC-SA 4.0)</strong>.
             </p>
             <p className="text-text-light leading-relaxed text-justify">
               Isso significa que voce pode usar, adaptar e compartilhar os conteudos do sabIA para
               fins nao comerciais, desde que atribua os creditos corretamente e mantenha a mesma
-              licenca nas versoes derivadas.
+              licença nas versoes derivadas.
             </p>
           </div>
 
