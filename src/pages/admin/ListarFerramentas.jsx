@@ -483,16 +483,16 @@ const ListarFerramentas = () => {
                 {/* Linha para nova ferramenta - sempre no topo */}
                 <tr className="bg-gray-100 border-b-2 border-gray-200">
                   <td className="px-4">
-                    {renderNewRowCell('Nome')}
+                    {renderNewRowCell('nome')}
                   </td>
                   <td className="px-2">
                     {renderNewRowCell('link_site')}
                   </td>
                   <td className="px-2">
-                    {renderNewRowCell('Função')}
+                    {renderNewRowCell('funcao')}
                   </td>
                   <td className="px-2">
-                    {renderNewRowCell('Como pode ajudar')}
+                    {renderNewRowCell('como_pode_ajudar')}
                   </td>
                   <td className="px-2">
                     {renderNewRowCell('tags')}
