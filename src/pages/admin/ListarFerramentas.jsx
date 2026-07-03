@@ -12,7 +12,8 @@ const ListarFerramentas = () => {
     link_site: '',
     funcao: '',
     como_pode_ajudar: '',
-    tags: ''
+    tags: '',
+    gratuidade: ''
   })
   const [editingData, setEditingData] = useState({})
   const [saving, setSaving] = useState(false)
@@ -22,8 +23,13 @@ const ListarFerramentas = () => {
   const [tagSuggestions, setTagSuggestions] = useState([])
   const [showSuggestions, setShowSuggestions] = useState({ newRow: false, editing: false })
   const [activeSuggestion, setActiveSuggestion] = useState(-1)
+  const [gratuidadeSuggestions, setGratuidadeSuggestions] = useState([])
+  const [showGratuidadeSuggestions, setShowGratuidadeSuggestions] = useState({ newRow: false, editing: false })
+  const [activeGratuidadeSuggestion, setActiveGratuidadeSuggestion] = useState(-1)
   const newTagInputRef = React.useRef(null)
   const editTagInputRef = React.useRef(null)
+  const newGratuidadeInputRef = React.useRef(null)
+  const editGratuidadeInputRef = React.useRef(null)
 
   useEffect(() => {
     loadFerramentas()
@@ -38,6 +44,19 @@ const ListarFerramentas = () => {
       }
     })
     return Array.from(tagsSet).sort()
+  }, [ferramentas])
+
+  const allGratuidadeOptions = useMemo(() => {
+    const knownOptions = ['gratuita', 'freemium', 'open_source']
+    const gratuidadeSet = new Set(knownOptions)
+
+    ferramentas.forEach(ferramenta => {
+      if (typeof ferramenta.gratuidade === 'string' && ferramenta.gratuidade.trim()) {
+        gratuidadeSet.add(ferramenta.gratuidade.trim())
+      }
+    })
+
+    return Array.from(gratuidadeSet).sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' }))
   }, [ferramentas])
 
   // Get current word being typed in tags input
@@ -119,6 +138,65 @@ const ListarFerramentas = () => {
     }
   }
 
+  const getFilteredGratuidadeSuggestions = (value) => {
+    const normalizedValue = value.trim().toLowerCase()
+    if (!normalizedValue) return []
+
+    return allGratuidadeOptions.filter(option =>
+      option.toLowerCase().startsWith(normalizedValue) &&
+      option.toLowerCase() !== normalizedValue
+    )
+  }
+
+  const handleGratuidadeInputChange = (value, isNewRow) => {
+    const suggestions = getFilteredGratuidadeSuggestions(value)
+
+    setGratuidadeSuggestions(suggestions)
+    setShowGratuidadeSuggestions({
+      newRow: isNewRow && suggestions.length > 0,
+      editing: !isNewRow && suggestions.length > 0
+    })
+    setActiveGratuidadeSuggestion(-1)
+
+    if (isNewRow) {
+      handleNewRowChange('gratuidade', value)
+    } else {
+      handleEditingChange('gratuidade', value)
+    }
+  }
+
+  const insertGratuidadeSuggestion = (suggestion, isNewRow, inputRef) => {
+    if (isNewRow) {
+      handleNewRowChange('gratuidade', suggestion)
+    } else {
+      handleEditingChange('gratuidade', suggestion)
+    }
+
+    setShowGratuidadeSuggestions({ newRow: false, editing: false })
+    setGratuidadeSuggestions([])
+    inputRef.current?.focus()
+  }
+
+  const handleGratuidadeKeyDown = (e, isNewRow, inputRef) => {
+    const suggestions = gratuidadeSuggestions
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      setActiveGratuidadeSuggestion(prev =>
+        prev < suggestions.length - 1 ? prev + 1 : prev
+      )
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      setActiveGratuidadeSuggestion(prev => prev > 0 ? prev - 1 : -1)
+    } else if (e.key === 'Enter' && activeGratuidadeSuggestion >= 0) {
+      e.preventDefault()
+      insertGratuidadeSuggestion(suggestions[activeGratuidadeSuggestion], isNewRow, inputRef)
+    } else if (e.key === 'Escape') {
+      setShowGratuidadeSuggestions({ newRow: false, editing: false })
+      setGratuidadeSuggestions([])
+    }
+  }
+
   const handleDelete = async (id, nome) => {
     if (window.confirm(`Tem certeza que deseja excluir a ferramenta "${nome}"?`)) {
       const result = await deleteFerramenta(id)
@@ -135,7 +213,8 @@ const ListarFerramentas = () => {
       link_site: ferramenta.link_site || '',
       funcao: ferramenta.funcao || '',
       como_pode_ajudar: ferramenta.como_pode_ajudar || '',
-      tags: Array.isArray(ferramenta.tags) ? ferramenta.tags.join(', ') : ''
+      tags: Array.isArray(ferramenta.tags) ? ferramenta.tags.join(', ') : '',
+      gratuidade: ferramenta.gratuidade || ''
     })
   }
 
@@ -159,7 +238,8 @@ const ListarFerramentas = () => {
         link_site: data.link_site ? data.link_site.trim() : null,
         funcao: data.funcao ? data.funcao.trim() : null,
         como_pode_ajudar: data.como_pode_ajudar ? data.como_pode_ajudar.trim() : null,
-        tags: tagsArray.length > 0 ? tagsArray : null
+        tags: tagsArray.length > 0 ? tagsArray : null,
+        gratuidade: data.gratuidade ? data.gratuidade.trim() : null
       }
 
       console.log('Dados preparados para salvar:', ferramentaData)
@@ -181,7 +261,8 @@ const ListarFerramentas = () => {
             link_site: '',
             funcao: '',
             como_pode_ajudar: '',
-            tags: ''
+            tags: '',
+            gratuidade: ''
           })
         }
       } else {
@@ -255,6 +336,31 @@ const ListarFerramentas = () => {
       : <ArrowDown className="w-3 h-3 ml-1 text-primary" />
   }
 
+  const getGratuidadeConfig = (tipo) => {
+    switch (tipo) {
+      case 'gratuita':
+        return {
+          label: 'Gratuita',
+          className: 'bg-green-100 text-green-700'
+        }
+      case 'freemium':
+        return {
+          label: 'Freemium',
+          className: 'bg-yellow-100 text-yellow-700'
+        }
+      case 'open_source':
+        return {
+          label: 'Open Source',
+          className: 'bg-blue-100 text-blue-700'
+        }
+      default:
+        return {
+          label: tipo || '-',
+          className: tipo ? 'bg-gray-100 text-gray-700' : 'bg-gray-100 text-gray-500'
+        }
+    }
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
@@ -292,6 +398,38 @@ const ListarFerramentas = () => {
                     }`}
                   >
                     {tag}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )
+      }
+
+      if (field === 'gratuidade') {
+        return (
+          <div className="relative">
+            <input
+              ref={editGratuidadeInputRef}
+              type="text"
+              value={editingData[field] || ''}
+              onChange={(e) => handleGratuidadeInputChange(e.target.value, false)}
+              onKeyDown={(e) => handleGratuidadeKeyDown(e, false, editGratuidadeInputRef)}
+              onBlur={() => setTimeout(() => setShowGratuidadeSuggestions(prev => ({ ...prev, editing: false })), 200)}
+              placeholder="gratuita, freemium..."
+              className="w-full p-2 border border-gray-300 rounded text-sm"
+            />
+            {showGratuidadeSuggestions.editing && gratuidadeSuggestions.length > 0 && (
+              <div className="popup-menu">
+                {gratuidadeSuggestions.map((option, index) => (
+                  <div
+                    key={option}
+                    onClick={() => insertGratuidadeSuggestion(option, false, editGratuidadeInputRef)}
+                    className={`popup-menu-item ${
+                      index === activeGratuidadeSuggestion ? 'bg-[rgba(199,91,44,0.14)] text-[var(--terra)]' : ''
+                    }`}
+                  >
+                    {option}
                   </div>
                 ))}
               </div>
@@ -344,6 +482,16 @@ const ListarFerramentas = () => {
       )
     }
 
+    if (field === 'gratuidade') {
+      const config = getGratuidadeConfig(ferramenta[field])
+
+      return (
+        <span className={`inline-flex px-2 py-1 text-xs rounded-full ${config.className}`}>
+          {config.label}
+        </span>
+      )
+    }
+
     return (
       <div className="text-sm text-gray-900 max-w-xs">
         {ferramenta[field] || '-'}
@@ -376,6 +524,38 @@ const ListarFerramentas = () => {
                   }`}
                 >
                   {tag}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )
+    }
+
+    if (field === 'gratuidade') {
+      return (
+        <div className="relative">
+          <input
+            ref={newGratuidadeInputRef}
+            type="text"
+            value={newRow[field] || ''}
+            onChange={(e) => handleGratuidadeInputChange(e.target.value, true)}
+            onKeyDown={(e) => handleGratuidadeKeyDown(e, true, newGratuidadeInputRef)}
+            onBlur={() => setTimeout(() => setShowGratuidadeSuggestions(prev => ({ ...prev, newRow: false })), 200)}
+            placeholder="gratuita, freemium..."
+            className="w-full p-2 border border-gray-300 rounded text-sm"
+          />
+          {showGratuidadeSuggestions.newRow && gratuidadeSuggestions.length > 0 && (
+            <div className="popup-menu">
+              {gratuidadeSuggestions.map((option, index) => (
+                <div
+                  key={option}
+                  onClick={() => insertGratuidadeSuggestion(option, true, newGratuidadeInputRef)}
+                  className={`popup-menu-item ${
+                    index === activeGratuidadeSuggestion ? 'bg-[rgba(199,91,44,0.14)] text-[var(--terra)]' : ''
+                  }`}
+                >
+                  {option}
                 </div>
               ))}
             </div>
@@ -454,7 +634,7 @@ const ListarFerramentas = () => {
           </div>
         )}
 
-        <div className="bg-white rounded-lg shadow-md overflow-hidden overflow-x-auto">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden overflow-auto">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50">
@@ -470,6 +650,9 @@ const ListarFerramentas = () => {
                   </th>
                   <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
                     Como pode ajudar
+                  </th>
+                  <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
+                    Distribuição
                   </th>
                   <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">
                     Tags
@@ -493,6 +676,9 @@ const ListarFerramentas = () => {
                   </td>
                   <td className="px-2">
                     {renderNewRowCell('como_pode_ajudar')}
+                  </td>
+                  <td className="px-2">
+                    {renderNewRowCell('gratuidade')}
                   </td>
                   <td className="px-2">
                     {renderNewRowCell('tags')}
@@ -524,6 +710,9 @@ const ListarFerramentas = () => {
                       </td>
                       <td className="p-2">
                         {renderCell(ferramenta, 'como_pode_ajudar', isEditing)}
+                      </td>
+                      <td className="p-2">
+                        {renderCell(ferramenta, 'gratuidade', isEditing)}
                       </td>
                       <td className="p-2">
                         {renderCell(ferramenta, 'tags', isEditing)}
