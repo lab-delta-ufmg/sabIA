@@ -589,9 +589,10 @@ const ListarFerramentas = () => {
           </div>
         )}
         
+      </div>
         {/* Footer Navigation */}
         <FooterNav />
-      </div>
+
     </div>
     </>
   )
