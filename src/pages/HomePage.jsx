@@ -147,7 +147,7 @@ const HomePage = () => {
             Explorar Ferramentas
           </Link>
         </div>
-        <div className="mx-auto flex items-center justify-center p-0"> SabIA  v.2.3 beta</div>
+        <div className="mx-auto flex items-center justify-center p-0"> SabIA  v.2.5 beta</div>
 
     </div>
   )
