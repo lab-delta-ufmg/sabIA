@@ -12,13 +12,17 @@ const ListarFerramentas = () => {
     link_site: '',
     funcao: '',
     como_pode_ajudar: '',
+    features: '',
+    how_can_help: '',
     tags: '',
+    tags_en: '',
     gratuidade: ''
   })
   const [editingData, setEditingData] = useState({})
   const [saving, setSaving] = useState(false)
   const [sortBy, setSortBy] = useState('nome') // 'nome' ou 'created_at'
   const [sortOrder, setSortOrder] = useState('asc') // 'asc' ou 'desc'
+  const [activeLanguage, setActiveLanguage] = useState('pt')
   const [nameFilter, setNameFilter] = useState('')
   const [tagSuggestions, setTagSuggestions] = useState([])
   const [showSuggestions, setShowSuggestions] = useState({ newRow: false, editing: false })
@@ -30,6 +34,7 @@ const ListarFerramentas = () => {
   const editTagInputRef = React.useRef(null)
   const newGratuidadeInputRef = React.useRef(null)
   const editGratuidadeInputRef = React.useRef(null)
+  const tagsFieldName = activeLanguage === 'en' ? 'tags_en' : 'tags'
 
   useEffect(() => {
     loadFerramentas()
@@ -39,12 +44,12 @@ const ListarFerramentas = () => {
   const allTags = useMemo(() => {
     const tagsSet = new Set()
     ferramentas.forEach(ferramenta => {
-      if (Array.isArray(ferramenta.tags)) {
-        ferramenta.tags.forEach(tag => tagsSet.add(tag))
+      if (Array.isArray(ferramenta[tagsFieldName])) {
+        ferramenta[tagsFieldName].forEach(tag => tagsSet.add(tag))
       }
     })
     return Array.from(tagsSet).sort()
-  }, [ferramentas])
+  }, [ferramentas, tagsFieldName])
 
   const allGratuidadeOptions = useMemo(() => {
     const knownOptions = ['gratuita', 'freemium', 'open_source']
@@ -77,7 +82,7 @@ const ListarFerramentas = () => {
     )
   }
 
-  const handleTagInputChange = (value, isNewRow, e) => {
+  const handleTagInputChange = (value, isNewRow, e, field) => {
     const cursorPos = e.target.selectionStart
     const suggestions = getFilteredSuggestions(value, cursorPos)
     
@@ -89,14 +94,14 @@ const ListarFerramentas = () => {
     setActiveSuggestion(-1)
 
     if (isNewRow) {
-      handleNewRowChange('tags', value)
+      handleNewRowChange(field, value)
     } else {
-      handleEditingChange('tags', value)
+      handleEditingChange(field, value)
     }
   }
 
-  const insertSuggestion = (suggestion, isNewRow, inputRef) => {
-    const currentValue = isNewRow ? newRow.tags : editingData.tags
+  const insertSuggestion = (suggestion, isNewRow, inputRef, field) => {
+    const currentValue = isNewRow ? (newRow[field] || '') : (editingData[field] || '')
     const cursorPos = inputRef.current?.selectionStart || currentValue.length
     
     const beforeCursor = currentValue.slice(0, cursorPos)
@@ -108,9 +113,9 @@ const ListarFerramentas = () => {
     const newValue = parts.join(',') + afterCursor
     
     if (isNewRow) {
-      handleNewRowChange('tags', newValue)
+      handleNewRowChange(field, newValue)
     } else {
-      handleEditingChange('tags', newValue)
+      handleEditingChange(field, newValue)
     }
     
     setShowSuggestions({ newRow: false, editing: false })
@@ -118,7 +123,7 @@ const ListarFerramentas = () => {
     inputRef.current?.focus()
   }
 
-  const handleTagKeyDown = (e, isNewRow, inputRef) => {
+  const handleTagKeyDown = (e, isNewRow, inputRef, field) => {
     const suggestions = tagSuggestions
     
     if (e.key === 'ArrowDown') {
@@ -131,7 +136,7 @@ const ListarFerramentas = () => {
       setActiveSuggestion(prev => prev > 0 ? prev - 1 : -1)
     } else if (e.key === 'Enter' && activeSuggestion >= 0) {
       e.preventDefault()
-      insertSuggestion(suggestions[activeSuggestion], isNewRow, inputRef)
+      insertSuggestion(suggestions[activeSuggestion], isNewRow, inputRef, field)
     } else if (e.key === 'Escape') {
       setShowSuggestions({ newRow: false, editing: false })
       setTagSuggestions([])
@@ -213,7 +218,10 @@ const ListarFerramentas = () => {
       link_site: ferramenta.link_site || '',
       funcao: ferramenta.funcao || '',
       como_pode_ajudar: ferramenta.como_pode_ajudar || '',
+      features: ferramenta.features || '',
+      how_can_help: ferramenta.how_can_help || '',
       tags: Array.isArray(ferramenta.tags) ? ferramenta.tags.join(', ') : '',
+      tags_en: Array.isArray(ferramenta.tags_en) ? ferramenta.tags_en.join(', ') : '',
       gratuidade: ferramenta.gratuidade || ''
     })
   }
@@ -229,16 +237,22 @@ const ListarFerramentas = () => {
         return
       }
 
-      const tagsArray = typeof data.tags === 'string' 
+      const tagsArray = typeof data.tags === 'string'
         ? data.tags.split(',').map(tag => tag.trim()).filter(tag => tag)
         : Array.isArray(data.tags) ? data.tags : []
+      const tagsEnArray = typeof data.tags_en === 'string'
+        ? data.tags_en.split(',').map(tag => tag.trim()).filter(tag => tag)
+        : Array.isArray(data.tags_en) ? data.tags_en : []
 
       const ferramentaData = {
         nome: data.nome.trim(),
         link_site: data.link_site ? data.link_site.trim() : null,
         funcao: data.funcao ? data.funcao.trim() : null,
         como_pode_ajudar: data.como_pode_ajudar ? data.como_pode_ajudar.trim() : null,
+        features: data.features ? data.features.trim() : null,
+        how_can_help: data.how_can_help ? data.how_can_help.trim() : null,
         tags: tagsArray.length > 0 ? tagsArray : null,
+        tags_en: tagsEnArray.length > 0 ? tagsEnArray : null,
         gratuidade: data.gratuidade ? data.gratuidade.trim() : null
       }
 
@@ -261,7 +275,10 @@ const ListarFerramentas = () => {
             link_site: '',
             funcao: '',
             como_pode_ajudar: '',
+            features: '',
+            how_can_help: '',
             tags: '',
+            tags_en: '',
             gratuidade: ''
           })
         }
@@ -374,14 +391,14 @@ const ListarFerramentas = () => {
 
   const renderCell = (ferramenta, field, isEditing) => {
     if (isEditing) {
-      if (field === 'tags') {
+      if (field === 'tags' || field === 'tags_en') {
         return (
           <div className="relative">
             <textarea
               ref={editTagInputRef}
               value={editingData[field] || ''}
-              onChange={(e) => handleTagInputChange(e.target.value, false, e)}
-              onKeyDown={(e) => handleTagKeyDown(e, false, editTagInputRef)}
+              onChange={(e) => handleTagInputChange(e.target.value, false, e, field)}
+              onKeyDown={(e) => handleTagKeyDown(e, false, editTagInputRef, field)}
               onBlur={() => setTimeout(() => setShowSuggestions(prev => ({ ...prev, editing: false })), 200)}
               placeholder="Tag1, Tag2, Tag3"
               className="w-full p-2 border border-gray-300 rounded text-sm resize-none"
@@ -392,7 +409,7 @@ const ListarFerramentas = () => {
                 {tagSuggestions.map((tag, index) => (
                   <div
                     key={tag}
-                    onClick={() => insertSuggestion(tag, false, editTagInputRef)}
+                    onClick={() => insertSuggestion(tag, false, editTagInputRef, field)}
                     className={`popup-menu-item ${
                       index === activeSuggestion ? 'bg-[rgba(199,91,44,0.14)] text-[var(--terra)]' : ''
                     }`}
@@ -443,18 +460,18 @@ const ListarFerramentas = () => {
           value={editingData[field] || ''}
           onChange={(e) => handleEditingChange(field, e.target.value)}
           className="w-full p-2 border border-gray-300 rounded text-sm resize-none"
-          rows={field === 'funcao' || field === 'como_pode_ajudar' ? "3" : "1"}
+          rows={field === 'funcao' || field === 'como_pode_ajudar' || field === 'features' || field === 'how_can_help' ? "3" : "1"}
           placeholder={field === 'link_site' ? 'https://...' : `${field.charAt(0).toUpperCase()}${field.slice(1)}`}
         />
       )
     }
 
     // Modo visualização
-    if (field === 'tags') {
+    if (field === 'tags' || field === 'tags_en') {
       return (
         <div className="flex flex-wrap gap-1">
-          {ferramenta.tags && ferramenta.tags.length > 0 ? (
-            ferramenta.tags.map((tag, index) => (
+          {ferramenta[field] && ferramenta[field].length > 0 ? (
+            ferramenta[field].map((tag, index) => (
               <span 
                 key={index}
                 className="px-2 py-1 text-xs bg-secondary/20 text-primary rounded-full"
@@ -500,14 +517,14 @@ const ListarFerramentas = () => {
   }
 
   const renderNewRowCell = (field) => {
-    if (field === 'tags') {
+    if (field === 'tags' || field === 'tags_en') {
       return (
         <div className="relative">
           <textarea
             ref={newTagInputRef}
             value={newRow[field] || ''}
-            onChange={(e) => handleTagInputChange(e.target.value, true, e)}
-            onKeyDown={(e) => handleTagKeyDown(e, true, newTagInputRef)}
+            onChange={(e) => handleTagInputChange(e.target.value, true, e, field)}
+            onKeyDown={(e) => handleTagKeyDown(e, true, newTagInputRef, field)}
             onBlur={() => setTimeout(() => setShowSuggestions(prev => ({ ...prev, newRow: false })), 200)}
             placeholder="Tag1, Tag2, Tag3"
             className="w-full p-2 border border-gray-300 rounded text-sm resize-none"
@@ -518,7 +535,7 @@ const ListarFerramentas = () => {
               {tagSuggestions.map((tag, index) => (
                 <div
                   key={tag}
-                  onClick={() => insertSuggestion(tag, true, newTagInputRef)}
+                  onClick={() => insertSuggestion(tag, true, newTagInputRef, field)}
                   className={`popup-menu-item ${
                     index === activeSuggestion ? 'bg-[rgba(199,91,44,0.14)] text-[var(--terra)]' : ''
                   }`}
@@ -569,11 +586,17 @@ const ListarFerramentas = () => {
         value={newRow[field] || ''}
         onChange={(e) => handleNewRowChange(field, e.target.value)}
         className="w-full p-2 border border-gray-300 rounded text-sm resize-none"
-        rows={field === 'funcao' || field === 'como_pode_ajudar' ? "3" : "1"}
+        rows={field === 'funcao' || field === 'como_pode_ajudar' || field === 'features' || field === 'how_can_help' ? "3" : "1"}
         placeholder={field === 'link_site' ? 'https://...' : `${field.charAt(0).toUpperCase()}${field.slice(1)}`}
       />
     )
   }
+
+  const functionFieldName = activeLanguage === 'en' ? 'features' : 'funcao'
+  const helpFieldName = activeLanguage === 'en' ? 'how_can_help' : 'como_pode_ajudar'
+  const functionColumnLabel = activeLanguage === 'en' ? 'Features' : 'Função'
+  const helpColumnLabel = activeLanguage === 'en' ? 'How can it help' : 'Como pode ajudar'
+  const tagsColumnLabel = activeLanguage === 'en' ? 'Tags (EN)' : 'Tags'
 
   return (
     <>
@@ -625,6 +648,35 @@ const ListarFerramentas = () => {
                 Data {getSortIcon('created_at')}
               </button>
             </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Idioma (campos descritivos e tags)
+              </label>
+              <div className="inline-flex rounded-lg border border-gray-300 overflow-hidden">
+                <button
+                  type="button"
+                  onClick={() => setActiveLanguage('pt')}
+                  className={`px-3 py-2 text-sm font-medium transition-colors ${
+                    activeLanguage === 'pt'
+                      ? 'bg-primary text-white'
+                      : 'bg-white text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  PT
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveLanguage('en')}
+                  className={`px-3 py-2 text-sm font-medium transition-colors ${
+                    activeLanguage === 'en'
+                      ? 'bg-primary text-white'
+                      : 'bg-white text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  EN
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -646,16 +698,16 @@ const ListarFerramentas = () => {
                     Link
                   </th>
                   <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
-                    Função
+                    {functionColumnLabel}
                   </th>
                   <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">
-                    Como pode ajudar
+                    {helpColumnLabel}
                   </th>
                   <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-32">
                     Distribuição
                   </th>
                   <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">
-                    Tags
+                    {tagsColumnLabel}
                   </th>
                   <th className="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider w-20">
                     Ações
@@ -672,16 +724,16 @@ const ListarFerramentas = () => {
                     {renderNewRowCell('link_site')}
                   </td>
                   <td className="px-2">
-                    {renderNewRowCell('funcao')}
+                    {renderNewRowCell(functionFieldName)}
                   </td>
                   <td className="px-2">
-                    {renderNewRowCell('como_pode_ajudar')}
+                    {renderNewRowCell(helpFieldName)}
                   </td>
                   <td className="px-2">
                     {renderNewRowCell('gratuidade')}
                   </td>
                   <td className="px-2">
-                    {renderNewRowCell('tags')}
+                    {renderNewRowCell(tagsFieldName)}
                   </td>
                   <td className="px-2 text-right">
                     <button
@@ -706,16 +758,16 @@ const ListarFerramentas = () => {
                         {renderCell(ferramenta, 'link_site', isEditing)}
                       </td>
                       <td className="p-2">
-                        {renderCell(ferramenta, 'funcao', isEditing)}
+                        {renderCell(ferramenta, functionFieldName, isEditing)}
                       </td>
                       <td className="p-2">
-                        {renderCell(ferramenta, 'como_pode_ajudar', isEditing)}
+                        {renderCell(ferramenta, helpFieldName, isEditing)}
                       </td>
                       <td className="p-2">
                         {renderCell(ferramenta, 'gratuidade', isEditing)}
                       </td>
                       <td className="p-2">
-                        {renderCell(ferramenta, 'tags', isEditing)}
+                        {renderCell(ferramenta, tagsFieldName, isEditing)}
                       </td>
                       <td className="p-2 text-right">
                         <div className="flex items-center justify-end gap-1">

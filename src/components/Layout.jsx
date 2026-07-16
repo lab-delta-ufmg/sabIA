@@ -2,6 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import CanvasBackground from './CanvasBackground'
 import FooterNav from './FooterNav'
+import Topbar from './Topbar'
 
 const Layout = () => {
   return (
@@ -9,10 +10,12 @@ const Layout = () => {
       <CanvasBackground />
 
       {/* Conteúdo principal */}
-      <main className="relative z-10 pb-20">
+      <main className="relative z-10 mt-10 pb-20">
         <Outlet />
       </main>
       
+      {/* Navegação superior */}
+      <Topbar />
       {/* Navegação inferior */}
       <FooterNav />
     </div>
