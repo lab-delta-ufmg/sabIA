@@ -46,6 +46,7 @@ import CriarPagina from './pages/admin/CriarPagina'
 import EditarPagina from './pages/admin/EditarPagina'
 import GerenciarSolicitacoes from './pages/admin/GerenciarSolicitacoes'
 import GerenciarEquipe from './pages/admin/GerenciarEquipe'
+import VisaoGeral from './pages/admin/VisaoGeral'
 
 // Importar CSS do Tailwind
 import './index.css'
@@ -190,6 +191,7 @@ function App() {
         {/* Rotas protegidas - Painel Administrativo */}
         <Route path="/painel" element={<ProtectedAdminRoute />}>
           <Route index element={<AdminDashboard />} />
+          <Route path="visao-geral" element={<VisaoGeral />} />
           <Route path="ferramentas" element={<ListarFerramentas />} />
           <Route path="ferramentas/criar" element={<CriarFerramenta />} />
           <Route path="ferramentas/editar/:id" element={<EditarFerramenta />} />

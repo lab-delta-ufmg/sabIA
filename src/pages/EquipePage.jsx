@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import { EnvelopeIcon } from '@heroicons/react/24/outline'
 
 const TEAM = [
-  { name: 'Ronaldo Correa Gomes Junior', role: 'Criacao e desenvolvimento', tone: '#A4451F' },
+  { name: 'Ronaldo Corrêa Gomes Junior', role: 'Criação e desenvolvimento', tone: '#A4451F' },
   { name: 'Carlos Henrique Rodrigues Valadares', role: 'Desenvolvimento e suporte', tone: '#B5612C' },
   { name: 'Elaine Teixeira da Silva', role: 'Desenvolvimento e curadoria', tone: '#94631E' },
-  { name: 'Alice Brandao Azevedo Alves', role: 'Curadoria', tone: '#5B582E' },
+  { name: 'Alice Brandão Azevedo Alves', role: 'Curadoria', tone: '#5B582E' },
   { name: 'Giovanna Carolina Martins', role: 'Curadoria e suporte', tone: '#7A4A24' },
 ]
 

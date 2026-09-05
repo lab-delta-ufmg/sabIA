@@ -12,7 +12,86 @@ export const tableNames = {
   FERRAMENTAS: 'ferramentas',
   CATEGORIAS: 'categorias',
   SOLICITACOES: 'solicitacoes_acesso',
-  EQUIPE: 'equipe'
+  EQUIPE: 'equipe',
+  VISITAS: 'visitas'
+}
+
+// Chave usada para não contar mais de uma visita por sessão do navegador
+const VISIT_SESSION_KEY = 'sabia_visita_registrada'
+
+// Serviço de contagem de vistas ao site
+export const visitasService = {
+  // Registra uma visita, uma única vez por sessão do navegador
+  async registrarVisita(caminho, idioma = 'pt') {
+    try {
+      if (typeof window === 'undefined') return
+
+      if (sessionStorage.getItem(VISIT_SESSION_KEY)) {
+        return
+      }
+
+      sessionStorage.setItem(VISIT_SESSION_KEY, '1')
+
+      await supabase.from(tableNames.VISITAS).insert({ caminho, idioma })
+    } catch (error) {
+      // Falhar silenciosamente: contagem de visitas não deve afetar a navegação
+      console.error('Erro ao registrar visita:', error)
+    }
+  },
+
+  // Retorna o total de visitas registradas
+  async contarVisitas() {
+    const { count, error } = await supabase
+      .from(tableNames.VISITAS)
+      .select('*', { count: 'exact', head: true })
+
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    return count || 0
+  },
+
+  // Retorna a série histórica de visitas por dia dos últimos `dias` dias
+  async serieVisitasPorDia(dias = 30) {
+    const formatarChaveLocal = (date) => {
+      const ano = date.getFullYear()
+      const mes = String(date.getMonth() + 1).padStart(2, '0')
+      const dia = String(date.getDate()).padStart(2, '0')
+      return `${ano}-${mes}-${dia}`
+    }
+
+    const desde = new Date()
+    desde.setHours(0, 0, 0, 0)
+    desde.setDate(desde.getDate() - (dias - 1))
+
+    const { data, error } = await supabase
+      .from(tableNames.VISITAS)
+      .select('criado_em')
+      .gte('criado_em', desde.toISOString())
+
+    if (error) {
+      throw new Error(error.message)
+    }
+
+    // Monta um mapa com todos os dias do período, zerados, e depois soma as visitas
+    const contagemPorDia = new Map()
+    for (let i = 0; i < dias; i++) {
+      const dia = new Date(desde)
+      dia.setDate(desde.getDate() + i)
+      contagemPorDia.set(formatarChaveLocal(dia), 0)
+    }
+
+    ;(data || []).forEach((registro) => {
+      // Converte o timestamp (UTC) para a data local do navegador, para bater com as chaves acima
+      const chave = formatarChaveLocal(new Date(registro.criado_em))
+      if (contagemPorDia.has(chave)) {
+        contagemPorDia.set(chave, contagemPorDia.get(chave) + 1)
+      }
+    })
+
+    return Array.from(contagemPorDia.entries()).map(([data, total]) => ({ data, total }))
+  }
 }
 
 // Serviços de autenticação

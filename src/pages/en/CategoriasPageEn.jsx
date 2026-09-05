@@ -99,12 +99,7 @@ const CategoriasPageEn = () => {
           <div className="max-w-3xl">
             <p className="leading-relaxed mb-6 text-justify text-lg text-ink">
               Each tool in sabIA is classified into one or more linguistic and pedagogical categories
-              to help you navigate and find resources aligned with your goals.
-            </p>
-
-            <div className="border-l-2 border-[--terra] pl-4">
-              <p className="font-serif italic text-xl text-[--terra]">
-                Categories are organized with a focus on language and educational practices.
+              to help you navigate and find resources aligned with your goals. Categories are organized with a focus on language and educational practices.
               </p>
             </div>
           </div>
@@ -206,7 +201,6 @@ const CategoriasPageEn = () => {
           </div>
         </div>
       </div>
-    </div>
   )
 }
 

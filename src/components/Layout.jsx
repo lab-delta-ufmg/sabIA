@@ -1,10 +1,20 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
 import CanvasBackground from './CanvasBackground'
 import FooterNav from './FooterNav'
 import Topbar from './Topbar'
+import { visitasService } from '../services/supabase'
 
 const Layout = () => {
+  const location = useLocation()
+
+  useEffect(() => {
+    const idioma = location.pathname === '/en' || location.pathname.startsWith('/en/') ? 'en' : 'pt'
+    visitasService.registrarVisita(location.pathname, idioma)
+    // Registrar apenas uma vez, ao montar o Layout (uma visita por sessão)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div className="relative isolate min-h-screen overflow-x-hidden bg-background">
       <CanvasBackground />

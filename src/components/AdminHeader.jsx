@@ -70,6 +70,9 @@ const AdminHeader = ({ title, subtitle, solicitacoesPendentes = 0 }) => {
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <div className="mb-6 overflow-hidden rounded-[1.25rem] border border-[var(--line)] bg-[rgba(251,246,236,0.9)] shadow-[0_18px_50px_rgba(42,32,20,0.08)]">
           <nav className="flex overflow-x-auto p-2">
+            <Link to="/painel/visao-geral" className={tabClass(location.pathname === '/painel/visao-geral')}>
+              Visão geral
+            </Link>
             <Link to="/painel/ferramentas" className={tabClass(location.pathname.includes('/painel/ferramentas'))}>
               Ferramentas
             </Link>

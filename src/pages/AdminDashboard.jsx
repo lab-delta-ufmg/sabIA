@@ -10,9 +10,9 @@ const AdminDashboard = () => {
   const [solicitacoesPendentes, setSolicitacoesPendentes] = useState(0)
 
   useEffect(() => {
-    // Redirecionar para ferramentas se estiver na rota base do painel
+    // Redirecionar para visão geral se estiver na rota base do painel
     if (location.pathname === '/painel') {
-      navigate('/painel/ferramentas', { replace: true })
+      navigate('/painel/visao-geral', { replace: true })
       return
     }
     

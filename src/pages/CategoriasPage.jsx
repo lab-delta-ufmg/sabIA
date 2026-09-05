@@ -104,12 +104,7 @@ const CategoriasPage = () => {
           <div className="max-w-3xl">
             <p className="leading-relaxed mb-6 text-justify text-lg text-ink">
               Cada ferramenta no sabIÁ é classificada em uma ou mais categorias linguístico-pedagógicas, 
-              que ajudam você a navegar e encontrar recursos alinhados aos seus objetivos.
-            </p>
-
-            <div className="border-l-2 border-[--terra] pl-4">
-              <p className="font-serif italic text-xl text-[--terra]">
-                As categorias são organizadas com foco em práticas linguísticas e educacionais.
+              que ajudam você a navegar e encontrar recursos alinhados aos seus objetivos. As categorias são organizadas com foco em práticas linguísticas e educacionais.
               </p>
             </div>
           </div>
@@ -215,7 +210,6 @@ const CategoriasPage = () => {
             </div>
           </div>
         </div>
-      </div>
   )
 }
 
